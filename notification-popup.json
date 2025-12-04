@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "id": "notification_001",
+  "title": "IMPORTANT UPDATE",
+  "message": "New algorithm improvements for 100x predictions",
+  "highlight": {
+    "title": "UPDATE NOTICE",
+    "message": "Please restart the app for best results"
+  }
+}
