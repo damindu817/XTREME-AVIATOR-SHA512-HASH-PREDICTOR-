@@ -23,5 +23,11 @@
     "message_si": "උදාහරණය :- Sha512 Hash ඇතුළත් කිරීමෙන්\n\nලැබුණු 10x සංඥා කාලය\n\n10:23:33 නම්, එහි තත්පර ඉවත් කර 10:23 ලෙස වේලාව සකස්කරන්න. විනාඩි 2ක කාලයක් සඳහා (10:23 මත) ක්‍රීඩා කරන්න. සම්බන්ධිත Signal කාල පරාසය: 10:22:45 සිට 10:25:15 දක්වා (±15s).\n\nඋදාහරණය:\n10:23:33 → 10:23\n10:23 → 10:22:45 // 10:25:15\n\nමෙම කාලය අතරතුර bet කරන්න.",
     "type": "high_risk_signal",
     "timestamp": "2025-08-27T06:00:00Z"
+  },
+  {
+    "title": "10× Algorithm Updated",
+    "message": "දැනට ඔබට SHA512 hash එක ඇතුල් කළ මොහොතේම,Multiplier Buttons තුළ Signal Accuracy Confidence Level (%) එක real-time ලෙස දැක්වෙනවා..",
+    "type": "algorithm_update",
+    "timestamp": "2025-12-05T21:40:00Z"
   }
 ]
