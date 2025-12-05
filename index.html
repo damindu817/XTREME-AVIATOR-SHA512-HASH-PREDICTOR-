@@ -444,6 +444,26 @@
       z-index: 2;
     }
     
+    /* NEW: Confidence percentage display on odd buttons */
+    .odd-confidence {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2px 6px;
+      border-radius: 10px;
+      z-index: 3;
+    }
+    
+    .confidence-2 { color: var(--success); }
+    .confidence-3 { color: var(--warning); }
+    .confidence-4 { color: #ff9e00; }
+    .confidence-7 { color: var(--secondary); }
+    .confidence-10 { color: var(--danger); }
+    .confidence-100 { color: var(--extreme); }
+    
     .confidence-bar {
       position: absolute;
       bottom: 0;
@@ -2531,31 +2551,37 @@
                 <span>2x</span>
                 <span>Low Risk</span>
                 <div class="confidence-bar" id="confidence-2" style="width: 0%"></div>
+                <div class="odd-confidence confidence-2" id="confidence-percent-2">0%</div>
               </button>
               <button class="odd-btn" onclick="predict('3')" id="odd-3">
                 <span>3x</span>
                 <span>Balanced</span>
                 <div class="confidence-bar" id="confidence-3" style="width: 0%"></div>
+                <div class="odd-confidence confidence-3" id="confidence-percent-3">0%</div>
               </button>
               <button class="odd-btn" onclick="predict('4')" id="odd-4">
                 <span>4x</span>
                 <span>Moderate</span>
                 <div class="confidence-bar" id="confidence-4" style="width: 0%"></div>
+                <div class="odd-confidence confidence-4" id="confidence-percent-4">0%</div>
               </button>
               <button class="odd-btn" onclick="predict('7')" id="odd-7">
                 <span>7x</span>
                 <span>High Risk</span>
                 <div class="confidence-bar" id="confidence-7" style="width: 0%"></div>
+                <div class="odd-confidence confidence-7" id="confidence-percent-7">0%</div>
               </button>
               <button class="odd-btn" onclick="predict('10')" id="odd-10">
                 <span>10x</span>
                 <span>Very High Risk</span>
                 <div class="confidence-bar" id="confidence-10" style="width: 0%"></div>
+                <div class="odd-confidence confidence-10" id="confidence-percent-10">0%</div>
               </button>
               <button class="odd-btn" onclick="predict('100')" id="odd-100">
                 <span>100x</span>
                 <span>Extreme Risk</span>
                 <div class="confidence-bar" id="confidence-100" style="width: 0%"></div>
+                <div class="odd-confidence confidence-100" id="confidence-percent-100">0%</div>
               </button>
             </div>
             
@@ -2873,6 +2899,8 @@
     let lastNotificationCheck = 0;
     const NOTIFICATION_CHECK_INTERVAL = 30000; // Check every 30 seconds
     const DONT_SHOW_KEY = 'xtreme_aviator_dont_show_today';
+    const JSON_POPUP_KEY = 'xtreme_aviator_json_popup_shown';
+    const DISCLAIMER_SHOWN_KEY = 'xtreme_aviator_disclaimer_shown';
     
     // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
@@ -2929,10 +2957,12 @@
         }
       });
       
-      // Initialize notification popup events
-      document.getElementById("notificationOverlay").addEventListener('click', function(e) {
+      // Initialize notification popup events - MODIFIED: Prevent background click closing
+      const notificationOverlay = document.getElementById("notificationOverlay");
+      notificationOverlay.addEventListener('click', function(e) {
         if (e.target === this) {
-          closeNotificationPopup();
+          // Do not close when clicking on background
+          e.stopPropagation();
         }
       });
       
@@ -2959,15 +2989,6 @@
           document.getElementById("disclaimerPopup").classList.remove("show");
         }
       });
-      
-      // Show disclaimer popup after 5 seconds if not shown before
-      if (!sessionStorage.getItem('disclaimerShown')) {
-        setTimeout(() => {
-          showDisclaimer();
-          setTimeout(hideDisclaimer, 8000);
-          sessionStorage.setItem('disclaimerShown', 'true');
-        }, 5000);
-      }
       
       // Create floating animation elements for offline page
       const animationContainer = document.getElementById('connectionAnimation');
@@ -3036,6 +3057,133 @@
       
       // Check for notification popup periodically
       setInterval(checkForNotificationPopup, NOTIFICATION_CHECK_INTERVAL);
+      
+      // Start midnight check for notification preferences
+      checkAndClearAtMidnight();
+      
+      // Check if we should show JSON notification first, then disclaimer
+      checkAndShowInitialPopups();
+    }
+    
+    // Check and show initial popups in correct order
+    async function checkAndShowInitialPopups() {
+      // First, check if JSON notification should be shown
+      const shouldShowJson = await shouldShowJsonPopup();
+      
+      if (shouldShowJson) {
+        // Show JSON notification after 5 seconds
+        setTimeout(showJsonNotification, 5000);
+      } else {
+        // If no JSON notification, show disclaimer after 5 seconds
+        setTimeout(showInitialDisclaimer, 5000);
+      }
+    }
+    
+    // Check if JSON notification should be shown
+    async function shouldShowJsonPopup() {
+      try {
+        // First check if user has selected "Do not show today"
+        const dontShowData = localStorage.getItem(DONT_SHOW_KEY);
+        if (dontShowData) {
+          try {
+            const data = JSON.parse(dontShowData);
+            const today = new Date().toDateString();
+            
+            // If the stored date is today and user selected "Don't show", return false
+            if (data.date === today && data.dontShow === true) {
+              return false;
+            }
+            
+            // If stored date is not today, clear the data
+            if (data.date !== today) {
+              localStorage.removeItem(DONT_SHOW_KEY);
+            }
+          } catch (e) {
+            localStorage.removeItem(DONT_SHOW_KEY);
+          }
+        }
+        
+        // Then check if JSON file exists and has valid notification
+        const response = await fetch('notification-popup.json');
+        if (response.status === 200) {
+          const data = await response.json();
+          
+          // Check if notification should be shown
+          if (data && data.enabled === true && data.message && data.title) {
+            // Check if this notification was already shown today
+            const notificationKey = `notification_${data.id || data.title}_shown`;
+            const lastShown = localStorage.getItem(notificationKey);
+            const today = new Date().toDateString();
+            
+            if (lastShown !== today) {
+              return true;
+            }
+          }
+        }
+      } catch (error) {
+        // JSON file doesn't exist or error loading
+        console.log("No custom notification JSON found or error loading");
+      }
+      
+      return false;
+    }
+    
+    // Show JSON notification
+    async function showJsonNotification() {
+      try {
+        const response = await fetch('notification-popup.json');
+        if (response.status === 200) {
+          const data = await response.json();
+          
+          // Check if notification should be shown
+          if (data && data.enabled === true && data.message && data.title) {
+            // Check if this notification was already shown today
+            const notificationKey = `notification_${data.id || data.title}_shown`;
+            const lastShown = localStorage.getItem(notificationKey);
+            const today = new Date().toDateString();
+            
+            if (lastShown !== today) {
+              // Show notification popup
+              showNotificationPopup(data);
+              
+              // Mark as shown today
+              localStorage.setItem(notificationKey, today);
+              
+              // Schedule disclaimer to show 3 seconds after closing JSON popup
+              document.getElementById('notificationOverlay').addEventListener('transitionend', function handler(e) {
+                if (!document.getElementById('notificationOverlay').classList.contains('active')) {
+                  document.getElementById('notificationOverlay').removeEventListener('transitionend', handler);
+                  setTimeout(showInitialDisclaimer, 3000);
+                }
+              });
+              
+              return; // JSON notification shown, we're done
+            }
+          }
+        }
+      } catch (error) {
+        console.log("Error loading JSON notification");
+      }
+      
+      // If JSON notification couldn't be shown, show disclaimer after 5 seconds
+      setTimeout(showInitialDisclaimer, 5000);
+    }
+    
+    // Show initial disclaimer
+    function showInitialDisclaimer() {
+      // Check if disclaimer was already shown in this session
+      if (!sessionStorage.getItem(DISCLAIMER_SHOWN_KEY)) {
+        showDisclaimer();
+        setTimeout(() => {
+          hideDisclaimer();
+          sessionStorage.setItem(DISCLAIMER_SHOWN_KEY, 'true');
+        }, 8000);
+      }
+    }
+    
+    // Function to show JSON popup
+    function showJsonPopup() {
+      // This function is now integrated into checkAndShowInitialPopups
     }
     
     // ====== NOTIFICATION POPUP FUNCTIONS ======
@@ -3043,7 +3191,7 @@
     // Check for notification popup from JSON
     async function checkForNotificationPopup() {
       // Check if user has selected "Do not show today"
-      if (shouldShowNotificationToday()) {
+      if (await shouldShowJsonPopup()) {
         try {
           // Try to load notification data from JSON file
           const response = await fetch('notification-popup.json');
@@ -3068,38 +3216,10 @@
             }
           }
         } catch (error) {
-          // JSON file doesn't exist or error loading - use default notification
+          // JSON file doesn't exist or error loading
           console.log("No custom notification JSON found");
         }
       }
-    }
-    
-    // Check if notification should be shown today
-    function shouldShowNotificationToday() {
-      const dontShowData = localStorage.getItem(DONT_SHOW_KEY);
-      
-      if (!dontShowData) return true;
-      
-      try {
-        const data = JSON.parse(dontShowData);
-        const today = new Date().toDateString();
-        
-        // If the stored date is today and user selected "Don't show", return false
-        if (data.date === today && data.dontShow === true) {
-          return false;
-        }
-        
-        // If stored date is not today, clear the data
-        if (data.date !== today) {
-          localStorage.removeItem(DONT_SHOW_KEY);
-          return true;
-        }
-      } catch (e) {
-        localStorage.removeItem(DONT_SHOW_KEY);
-        return true;
-      }
-      
-      return true;
     }
     
     // Show notification popup with data
@@ -3161,6 +3281,7 @@
       
       setTimeout(() => {
         localStorage.removeItem(DONT_SHOW_KEY);
+        localStorage.removeItem(JSON_POPUP_KEY);
         // Schedule next midnight check
         setTimeout(checkAndClearAtMidnight, 24 * 60 * 60 * 1000); // 24 hours
       }, timeUntilMidnight);
@@ -3555,10 +3676,11 @@
       const entropy = calcEntropy(hash);
       const score = scoreFromHash(hash);
       
-      // Update confidence bars for each odd
+      // Update confidence bars and percentages for each odd
       [2, 3, 4, 7, 10, 100].forEach(odd => {
         const confidence = calculateConfidence(entropy, score, odd.toString(), hash);
         document.getElementById(`confidence-${odd}`).style.width = `${confidence}%`;
+        document.getElementById(`confidence-percent-${odd}`).textContent = `${confidence}%`;
       });
     }
     
@@ -3654,9 +3776,10 @@
       document.getElementById("copyResultBtn").disabled = true;
       selectedOdd = null;
       
-      // Reset confidence bars
+      // Reset confidence bars and percentages
       [2, 3, 4, 7, 10, 100].forEach(odd => {
         document.getElementById(`confidence-${odd}`).style.width = '0%';
+        document.getElementById(`confidence-percent-${odd}`).textContent = '0%';
       });
       
       // Reset results display
@@ -4377,9 +4500,6 @@
     
     // Start simulation (remove in production)
     simulateAutoTracking();
-    
-    // Start midnight check for notification preferences
-    checkAndClearAtMidnight();
   </script>
 </body>
 </html>
