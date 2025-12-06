@@ -77,7 +77,7 @@
       position: relative;
     }
     
-    /* Header with refined styling */
+    /* Header with refined styling - UPDATED z-index */
     .header {
       position: fixed;
       top: 0;
@@ -86,7 +86,7 @@
       height: var(--header-height);
       background: linear-gradient(90deg, var(--primary), var(--secondary));
       padding: 10px 20px;
-      z-index: 100;
+      z-index: 2000; /* Increased z-index */
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -121,7 +121,7 @@
       width: 300px;
       height: 100%;
       background: var(--dark-2);
-      z-index: 1000;
+      z-index: 2001; /* Above header */
       transition: right 0.3s ease-out;
       padding: 20px;
       box-shadow: -5px 0 25px rgba(0,0,0,0.3);
@@ -241,7 +241,7 @@
       padding: 20px;
     }
     
-    /* Navigation bar with refined styling */
+    /* Navigation bar with refined styling - UPDATED z-index */
     .nav-bar {
       position: fixed;
       bottom: 0;
@@ -251,7 +251,7 @@
       background: var(--dark-2);
       display: flex;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      z-index: 100;
+      z-index: 2000; /* Increased z-index */
       box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
     }
     
@@ -953,7 +953,7 @@
     .actual-multiplier-10 { color: var(--danger); }
     .actual-multiplier-100 { color: var(--extreme); }
 
-    /* Updated Disclaimer Badge Animation */
+    /* UPDATED: Disclaimer Badge Animation with popup overlay */
     .disclaimer-badge {
       position: fixed;
       bottom: 25px;
@@ -967,7 +967,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 999;
+      z-index: 1950; /* Below header/nav but above overlay */
       box-shadow: 0 5px 20px rgba(255, 0, 110, 0.3);
       transition: all 0.3s ease;
       font-size: 1.2rem;
@@ -1005,7 +1005,7 @@
       }
     }
 
-    /* Disclaimer popup */
+    /* UPDATED: Disclaimer popup with overlay */
     .disclaimer-popup {
       position: fixed;
       bottom: 85px;
@@ -1020,7 +1020,7 @@
       transform: translateY(20px);
       opacity: 0;
       transition: all 0.3s ease;
-      z-index: 998;
+      z-index: 1951; /* Above the badge */
       pointer-events: none;
     }
 
@@ -1058,7 +1058,7 @@
       text-decoration: underline;
     }
 
-    /* Tips Badge - Position updated */
+    /* UPDATED: Tips Badge - Position updated with popup overlay */
     .tips-badge {
       position: fixed;
       bottom: 280px;
@@ -1072,7 +1072,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 997;
+      z-index: 1950; /* Below header/nav but above overlay */
       box-shadow: 0 5px 20px rgba(255, 190, 11, 0.3);
       transition: all 0.3s ease;
       font-size: 1.2rem;
@@ -1102,7 +1102,7 @@
                       0 0 0 30px rgba(255, 190, 11, 0); }
     }
     
-    /* Tips popup styles */
+    /* UPDATED: Tips popup styles with overlay */
     .tips-popup {
       position: fixed;
       bottom: 340px;
@@ -1117,7 +1117,7 @@
       transform: translateY(20px);
       opacity: 0;
       transition: all 0.3s ease;
-      z-index: 996;
+      z-index: 1951; /* Above the badge */
       pointer-events: none;
     }
     
@@ -1166,7 +1166,7 @@
       text-decoration: underline;
     }
 
-    /* Custom Dialog Styles */
+    /* UPDATED: Custom Dialog Styles with overlay */
     .dialog-overlay {
       position: fixed;
       top: 0;
@@ -1177,7 +1177,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: 1890; /* Below header/nav */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -1198,6 +1198,7 @@
       transform: translateY(20px);
       transition: transform 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1891;
     }
 
     .dialog-overlay.active .dialog-box {
@@ -1282,7 +1283,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1001;
+      z-index: 1900; /* Above dialog overlay */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-out;
@@ -1304,6 +1305,7 @@
       transform: translateY(20px) scale(0.98);
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+      z-index: 1901;
     }
     
     .signal-container.active .signal-card {
@@ -1533,7 +1535,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1001;
+      z-index: 1900; /* Above dialog overlay */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-out;
@@ -1555,6 +1557,7 @@
       transform: translateY(20px) scale(0.98);
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+      z-index: 1901;
     }
     
     .risk-signal-container.active .risk-signal-card {
@@ -2179,6 +2182,25 @@
       user-select: none;
     }
     
+    /* NEW: Overlay for popup background darkening */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1890; /* Below header/nav */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .popup-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .odd-buttons {
@@ -2375,6 +2397,9 @@
   </style>
 </head>
 <body>
+  <!-- Popup Overlay for background darkening -->
+  <div class="popup-overlay" id="popupOverlay"></div>
+
   <!-- Notification Overlay -->
   <div class="notification-overlay" id="notificationOverlay">
     <div class="notification-popup" id="notificationPopup">
@@ -2704,13 +2729,13 @@
   </div>
 
   <!-- Tips Badge -->
-  <div class="tips-badge" id="tipsBadge">
+  <div class="tips-badge" id="tipsBadge" aria-label="Tips and Tricks" role="button" tabindex="0">
     <i class="fas fa-lightbulb"></i>
   </div>
 
   <!-- Tips Popup -->
-  <div class="tips-popup" id="tipsPopup">
-    <h4><i class="fas fa-lightbulb"></i> TIPS & TRICKS</h4>
+  <div class="tips-popup" id="tipsPopup" role="dialog" aria-modal="true" aria-labelledby="tipsPopupTitle">
+    <h4 id="tipsPopupTitle"><i class="fas fa-lightbulb"></i> TIPS & TRICKS</h4>
     <p>Here are some expert tips to improve your predictions:</p>
     <ul>
       <li>Use signals with confidence above 95%</li>
@@ -2722,13 +2747,13 @@
   </div>
 
   <!-- Disclaimer Badge -->
-  <div class="disclaimer-badge" id="disclaimerBadge" onclick="window.open('https://damindu817.github.io/DISCLAIMER-/','_blank')">
+  <div class="disclaimer-badge" id="disclaimerBadge" aria-label="Important Disclaimer" role="button" tabindex="0">
     <i class="fas fa-exclamation-triangle"></i>
   </div>
 
   <!-- Disclaimer Popup -->
-  <div class="disclaimer-popup" id="disclaimerPopup">
-    <h4>DISCLAIMER!</h4>
+  <div class="disclaimer-popup" id="disclaimerPopup" role="dialog" aria-modal="true" aria-labelledby="disclaimerPopupTitle">
+    <h4 id="disclaimerPopupTitle">DISCLAIMER!</h4>
     <p>This tool provides analytical insights based on patterns and probability. Predictions are not guaranteed. Gambling involves risk. Only play with money you can afford to lose.</p>
     <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank">Click icon for guide & creator contact</a>
   </div>
@@ -2893,6 +2918,7 @@
     let lastNotificationETag = '';
     let lastNotificationModified = '';
     let unseenNotifications = 0;
+    let popupOverlayActive = false;
     
     // Notification system variables
     let notificationData = null;
@@ -2974,20 +3000,44 @@
       tipsBadge.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        tipsPopup.classList.toggle("show");
-        
-        // Hide disclaimer popup if showing
-        document.getElementById("disclaimerPopup").classList.remove("show");
+        toggleTipsPopup();
       });
       
-      // Close popups when clicking elsewhere
-      document.addEventListener('click', function(e) {
-        if (!tipsBadge.contains(e.target) && !tipsPopup.contains(e.target)) {
-          tipsPopup.classList.remove("show");
+      // Add keyboard support for tips badge
+      tipsBadge.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleTipsPopup();
         }
-        
-        if (!disclaimerBadge.contains(e.target) && !disclaimerPopup.contains(e.target)) {
-          document.getElementById("disclaimerPopup").classList.remove("show");
+      });
+      
+      // Initialize disclaimer badge
+      const disclaimerBadge = document.getElementById("disclaimerBadge");
+      
+      disclaimerBadge.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleDisclaimerPopup();
+      });
+      
+      // Add keyboard support for disclaimer badge
+      disclaimerBadge.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleDisclaimerPopup();
+        }
+      });
+      
+      // Close popups when clicking elsewhere - UPDATED: Only close if clicking on overlay
+      document.addEventListener('click', function(e) {
+        // Check if click is on the popup overlay (background)
+        const popupOverlay = document.getElementById('popupOverlay');
+        if (popupOverlay.classList.contains('active') && 
+            !tipsPopup.contains(e.target) && 
+            !tipsBadge.contains(e.target) &&
+            !disclaimerPopup.contains(e.target) &&
+            !disclaimerBadge.contains(e.target)) {
+          // Do nothing - prevent closing by clicking background
         }
       });
       
@@ -3058,6 +3108,122 @@
       
       // Check if we should show JSON notification first, then disclaimer
       checkAndShowInitialPopups();
+    }
+    
+    // NEW: Toggle tips popup function
+    function toggleTipsPopup() {
+      const tipsPopup = document.getElementById("tipsPopup");
+      const popupOverlay = document.getElementById("popupOverlay");
+      
+      if (tipsPopup.classList.contains("show")) {
+        // Close tips popup
+        tipsPopup.classList.remove("show");
+        
+        // Hide overlay if no other popups are active
+        if (!document.getElementById("disclaimerPopup").classList.contains("show")) {
+          popupOverlay.classList.remove("active");
+          popupOverlayActive = false;
+        }
+      } else {
+        // Open tips popup
+        tipsPopup.classList.add("show");
+        
+        // Show overlay
+        popupOverlay.classList.add("active");
+        popupOverlayActive = true;
+        
+        // Hide disclaimer popup if showing
+        document.getElementById("disclaimerPopup").classList.remove("show");
+      }
+    }
+    
+    // NEW: Toggle disclaimer popup function
+    function toggleDisclaimerPopup() {
+      const disclaimerPopup = document.getElementById("disclaimerPopup");
+      const popupOverlay = document.getElementById("popupOverlay");
+      
+      if (disclaimerPopup.classList.contains("show")) {
+        // Close disclaimer popup
+        disclaimerPopup.classList.remove("show");
+        
+        // Hide overlay if no other popups are active
+        if (!document.getElementById("tipsPopup").classList.contains("show")) {
+          popupOverlay.classList.remove("active");
+          popupOverlayActive = false;
+        }
+      } else {
+        // Open disclaimer popup
+        disclaimerPopup.classList.add("show");
+        
+        // Show overlay
+        popupOverlay.classList.add("active");
+        popupOverlayActive = true;
+        
+        // Hide tips popup if showing
+        document.getElementById("tipsPopup").classList.remove("show");
+      }
+    }
+    
+    // NEW: Show disclaimer (for auto display)
+    function showDisclaimer() {
+      const disclaimerPopup = document.getElementById("disclaimerPopup");
+      const popupOverlay = document.getElementById("popupOverlay");
+      
+      disclaimerPopup.classList.add("show");
+      popupOverlay.classList.add("active");
+      popupOverlayActive = true;
+    }
+    
+    // NEW: Hide disclaimer
+    function hideDisclaimer() {
+      const disclaimerPopup = document.getElementById("disclaimerPopup");
+      const popupOverlay = document.getElementById("popupOverlay");
+      
+      disclaimerPopup.classList.remove("show");
+      
+      // Hide overlay if no other popups are active
+      if (!document.getElementById("tipsPopup").classList.contains("show")) {
+        popupOverlay.classList.remove("active");
+        popupOverlayActive = false;
+      }
+    }
+    
+    // NEW: Close all popups (for tab switching)
+    function closeAllPopups() {
+      const disclaimerPopup = document.getElementById("disclaimerPopup");
+      const tipsPopup = document.getElementById("tipsPopup");
+      const popupOverlay = document.getElementById("popupOverlay");
+      
+      disclaimerPopup.classList.remove("show");
+      tipsPopup.classList.remove("show");
+      popupOverlay.classList.remove("active");
+      popupOverlayActive = false;
+    }
+    
+    // NEW: Show tips popup after signal generation and result
+    function showTipsPopup() {
+      if (!tipsPopupShown && signalResultReceived) {
+        const tipsPopup = document.getElementById("tipsPopup");
+        const popupOverlay = document.getElementById("popupOverlay");
+        
+        tipsPopup.classList.add("show");
+        popupOverlay.classList.add("active");
+        popupOverlayActive = true;
+        tipsPopupShown = true;
+        
+        // Auto-hide after 8 seconds
+        setTimeout(() => {
+          if (tipsPopup.classList.contains("show")) {
+            tipsPopup.classList.remove("show");
+            
+            // Hide overlay if no other popups are active
+            if (!document.getElementById("disclaimerPopup").classList.contains("show")) {
+              popupOverlay.classList.remove("active");
+              popupOverlayActive = false;
+            }
+          }
+        }, 8000);
+      }
     }
     
     // Check and show initial popups in correct order
@@ -3301,51 +3467,69 @@
       notificationCheckInterval = setInterval(checkForNewNotifications, 15000);
     }
     
-    // Check for new notifications
+    // Enhanced: Check for new notifications with ETag/Last-Modified
     async function checkForNewNotifications() {
       try {
         const response = await fetch('notifications.json', {
-          method: 'HEAD'
+          method: 'HEAD',
+          cache: 'no-cache'
         });
         
         const currentETag = response.headers.get('ETag');
         const currentModified = response.headers.get('Last-Modified');
         
+        // If either ETag or Last-Modified has changed, reload notifications
         if (currentETag !== lastNotificationETag || currentModified !== lastNotificationModified) {
+          console.log('Notifications updated, reloading...');
+          
           // There are changes, load the new notifications
-          loadNotifications();
+          await loadNotifications();
+          
+          // Update stored headers
           lastNotificationETag = currentETag;
           lastNotificationModified = currentModified;
+          
+          // Also check for JSON notification popup updates
+          await checkForNotificationPopup();
         }
       } catch (e) {
-        console.error("Time sync failed, using local time:", e);
+        console.error("Failed to check for notification updates:", e);
       }
     }
     
     // Load notifications from JSON file
     async function loadNotifications() {
       try {
-        const response = await fetch('notifications.json');
-        const notifications = await response.json();
+        const response = await fetch('notifications.json', {
+          cache: 'no-cache',
+          headers: {
+            'Pragma': 'no-cache',
+            'Cache-Control': 'no-cache'
+          }
+        });
         
-        // Store the ETag and Last-Modified headers for future checks
-        lastNotificationETag = response.headers.get('ETag');
-        lastNotificationModified = response.headers.get('Last-Modified');
-        
-        // Get the last seen notification time from localStorage
-        const lastSeen = localStorage.getItem('lastSeenNotification') || '0';
-        
-        // Count unseen notifications
-        unseenNotifications = notifications.filter(n => {
-          const notifTime = new Date(n.timestamp).getTime();
-          return notifTime > parseInt(lastSeen);
-        }).length;
-        
-        // Update badge
-        updateNotificationBadge();
-        
-        // Render notifications
-        renderNotifications(notifications);
+        if (response.status === 200) {
+          const notifications = await response.json();
+          
+          // Store the ETag and Last-Modified headers for future checks
+          lastNotificationETag = response.headers.get('ETag');
+          lastNotificationModified = response.headers.get('Last-Modified');
+          
+          // Get the last seen notification time from localStorage
+          const lastSeen = localStorage.getItem('lastSeenNotification') || '0';
+          
+          // Count unseen notifications
+          unseenNotifications = notifications.filter(n => {
+            const notifTime = new Date(n.timestamp).getTime();
+            return notifTime > parseInt(lastSeen);
+          }).length;
+          
+          // Update badge
+          updateNotificationBadge();
+          
+          // Render notifications
+          renderNotifications(notifications);
+        }
       } catch (e) {
         console.error("Failed to load notifications:", e);
         
@@ -3465,8 +3649,11 @@
       }
     }
     
-    // Tab switching function - UPDATED to handle notification badge
+    // Tab switching function - UPDATED to handle notification badge and close popups
     function switchTab(tabId, clickedElement) {
+      // Close all popups when switching tabs
+      closeAllPopups();
+      
       // Hide all tab contents
       document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
@@ -3507,32 +3694,6 @@
         syncServerTime(); // Sync time when connection is restored
       } else {
         document.getElementById('offlineOverlay').classList.add('active');
-      }
-    }
-    
-    // Show disclaimer popup
-    function showDisclaimer() {
-      const popup = document.getElementById("disclaimerPopup");
-      popup.classList.add("show");
-    }
-    
-    // Hide disclaimer popup
-    function hideDisclaimer() {
-      const popup = document.getElementById("disclaimerPopup");
-      popup.classList.remove("show");
-    }
-    
-    // Show tips popup after signal generation and result
-    function showTipsPopup() {
-      if (!tipsPopupShown && signalResultReceived) {
-        const tipsPopup = document.getElementById("tipsPopup");
-        tipsPopup.classList.add("show");
-        tipsPopupShown = true;
-        
-        // Auto-hide after 8 seconds
-        setTimeout(() => {
-          tipsPopup.classList.remove("show");
-        }, 8000);
       }
     }
     
