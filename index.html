@@ -86,7 +86,7 @@
       height: var(--header-height);
       background: linear-gradient(90deg, var(--primary), var(--secondary));
       padding: 10px 20px;
-      z-index: 2000; /* Increased z-index */
+      z-index: 1900; /* Reduced z-index */
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -251,7 +251,7 @@
       background: var(--dark-2);
       display: flex;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      z-index: 2000; /* Increased z-index */
+      z-index: 1900; /* Reduced z-index */
       box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
     }
     
@@ -967,7 +967,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 1950; /* Below header/nav but above overlay */
+      z-index: 1949; /* Below signal popups */
       box-shadow: 0 5px 20px rgba(255, 0, 110, 0.3);
       transition: all 0.3s ease;
       font-size: 1.2rem;
@@ -1020,7 +1020,7 @@
       transform: translateY(20px);
       opacity: 0;
       transition: all 0.3s ease;
-      z-index: 1951; /* Above the badge */
+      z-index: 1950; /* Above the badge */
       pointer-events: none;
     }
 
@@ -1072,7 +1072,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 1950; /* Below header/nav but above overlay */
+      z-index: 1949; /* Below signal popups */
       box-shadow: 0 5px 20px rgba(255, 190, 11, 0.3);
       transition: all 0.3s ease;
       font-size: 1.2rem;
@@ -1117,7 +1117,7 @@
       transform: translateY(20px);
       opacity: 0;
       transition: all 0.3s ease;
-      z-index: 1951; /* Above the badge */
+      z-index: 1950; /* Above the badge */
       pointer-events: none;
     }
     
@@ -1283,7 +1283,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1900; /* Above dialog overlay */
+      z-index: 2001; /* Increased z-index */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-out;
@@ -1305,7 +1305,7 @@
       transform: translateY(20px) scale(0.98);
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
-      z-index: 1901;
+      z-index: 2002;
     }
     
     .signal-container.active .signal-card {
@@ -1535,7 +1535,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1900; /* Above dialog overlay */
+      z-index: 2001; /* Above dialog overlay */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-out;
@@ -1557,7 +1557,7 @@
       transform: translateY(20px) scale(0.98);
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
-      z-index: 1901;
+      z-index: 2002;
     }
     
     .risk-signal-container.active .risk-signal-card {
@@ -2182,21 +2182,21 @@
       user-select: none;
     }
     
-    /* NEW: Overlay for popup background darkening */
-    .popup-overlay {
+    /* NEW: Signal popup overlay for background darkening */
+    .signal-popup-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1890; /* Below header/nav */
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000; /* Below signal popup but above everything else */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
     
-    .popup-overlay.active {
+    .signal-popup-overlay.active {
       opacity: 1;
       pointer-events: all;
     }
@@ -2397,6 +2397,9 @@
   </style>
 </head>
 <body>
+  <!-- Signal Popup Overlay for background darkening -->
+  <div class="signal-popup-overlay" id="signalPopupOverlay"></div>
+
   <!-- Popup Overlay for background darkening -->
   <div class="popup-overlay" id="popupOverlay"></div>
 
@@ -2969,18 +2972,23 @@
       });
       
       // Initialize signal popup events
-      document.getElementById("signalPopup").addEventListener('click', function(e) {
+      const signalPopup = document.getElementById("signalPopup");
+      const riskSignalPopup = document.getElementById("riskSignalPopup");
+      const signalPopupOverlay = document.getElementById("signalPopupOverlay");
+      
+      signalPopup.addEventListener('click', function(e) {
         // Only close if clicking directly on the overlay background
         if (e.target === this) {
           e.stopPropagation();
+          closeSignalPopup();
         }
       });
       
-      // Initialize risk signal popup events
-      document.getElementById("riskSignalPopup").addEventListener('click', function(e) {
+      riskSignalPopup.addEventListener('click', function(e) {
         // Only close if clicking directly on the overlay background
         if (e.target === this) {
           e.stopPropagation();
+          closeRiskSignalPopup();
         }
       });
       
@@ -3013,6 +3021,7 @@
       
       // Initialize disclaimer badge
       const disclaimerBadge = document.getElementById("disclaimerBadge");
+      const disclaimerPopup = document.getElementById("disclaimerPopup");
       
       disclaimerBadge.addEventListener('click', function(e) {
         e.preventDefault();
@@ -3030,14 +3039,18 @@
       
       // Close popups when clicking elsewhere - UPDATED: Only close if clicking on overlay
       document.addEventListener('click', function(e) {
-        // Check if click is on the popup overlay (background)
-        const popupOverlay = document.getElementById('popupOverlay');
-        if (popupOverlay.classList.contains('active') && 
+        // Check if click is on the signal popup overlay (background)
+        const signalOverlay = document.getElementById('signalPopupOverlay');
+        if (signalOverlay.classList.contains('active') && 
             !tipsPopup.contains(e.target) && 
             !tipsBadge.contains(e.target) &&
             !disclaimerPopup.contains(e.target) &&
-            !disclaimerBadge.contains(e.target)) {
-          // Do nothing - prevent closing by clicking background
+            !disclaimerBadge.contains(e.target) &&
+            !signalPopup.contains(e.target) &&
+            !riskSignalPopup.contains(e.target)) {
+          // Close signal popups
+          closeSignalPopup();
+          closeRiskSignalPopup();
         }
       });
       
@@ -3198,6 +3211,10 @@
       tipsPopup.classList.remove("show");
       popupOverlay.classList.remove("active");
       popupOverlayActive = false;
+      
+      // Also close signal popups if open
+      closeSignalPopup();
+      closeRiskSignalPopup();
     }
     
     // NEW: Show tips popup after signal generation and result
@@ -4024,7 +4041,11 @@
     
     // Enhanced function to show signal popup
     function showSignalPopup(targetTime, odd, signalId) {
+      // Close any open Tips or Disclaimer popups
+      closeAllPopups();
+      
       const popup = document.getElementById("signalPopup");
+      const signalOverlay = document.getElementById("signalPopupOverlay");
       const timeStr = targetTime.toLocaleTimeString();
       
       // Update popup content
@@ -4075,8 +4096,9 @@
         }
       }, 1000);
       
-      // Show popup
+      // Show popup and overlay
       popup.classList.add("active");
+      signalOverlay.classList.add("active");
       
       // Auto-close when signal time arrives
       const now = new Date(Date.now() + serverTimeOffset);
@@ -4091,7 +4113,11 @@
 
     // Enhanced function to show RISK signal popup
     function showRiskSignalPopup(targetTime, odd, signalId) {
+      // Close any open Tips or Disclaimer popups
+      closeAllPopups();
+      
       const popup = document.getElementById("riskSignalPopup");
+      const signalOverlay = document.getElementById("signalPopupOverlay");
       const timeStr = targetTime.toLocaleTimeString();
       
       // Update popup content
@@ -4192,8 +4218,9 @@
         }
       }, 1000);
       
-      // Show popup and play warning sound
+      // Show popup, overlay and play warning sound
       popup.classList.add("active");
+      signalOverlay.classList.add("active");
       playWarningSound();
       
       // Auto-close when signal time arrives
@@ -4210,7 +4237,10 @@
     // Enhanced function to close signal popup
     function closeSignalPopup() {
       const popup = document.getElementById("signalPopup");
+      const signalOverlay = document.getElementById("signalPopupOverlay");
+      
       popup.classList.remove("active");
+      signalOverlay.classList.remove("active");
       activeSignalPopup = null;
       
       // Clear countdown interval
@@ -4223,7 +4253,10 @@
     // Function to close RISK signal popup
     function closeRiskSignalPopup() {
       const popup = document.getElementById("riskSignalPopup");
+      const signalOverlay = document.getElementById("signalPopupOverlay");
+      
       popup.classList.remove("active");
+      signalOverlay.classList.remove("active");
       activeSignalPopup = null;
       
       // Clear countdown interval
