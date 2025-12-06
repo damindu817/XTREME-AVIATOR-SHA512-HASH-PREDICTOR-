@@ -2901,6 +2901,7 @@
     const DONT_SHOW_KEY = 'xtreme_aviator_dont_show_today';
     const JSON_POPUP_KEY = 'xtreme_aviator_json_popup_shown';
     const DISCLAIMER_SHOWN_KEY = 'xtreme_aviator_disclaimer_shown';
+    const SESSION_NOTIFICATION_SHOWN_KEY = 'xtreme_aviator_notification_shown_in_session';
     
     // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
@@ -3052,12 +3053,6 @@
       // Load initial notifications
       loadNotifications();
       
-      // Start notification popup checking
-      checkForNotificationPopup();
-      
-      // Check for notification popup periodically
-      setInterval(checkForNotificationPopup, NOTIFICATION_CHECK_INTERVAL);
-      
       // Start midnight check for notification preferences
       checkAndClearAtMidnight();
       
@@ -3072,10 +3067,14 @@
       
       if (shouldShowJson) {
         // Show JSON notification after 5 seconds
-        setTimeout(showJsonNotification, 5000);
+        setTimeout(() => {
+          showJsonNotification();
+        }, 5000);
       } else {
         // If no JSON notification, show disclaimer after 5 seconds
-        setTimeout(showInitialDisclaimer, 5000);
+        setTimeout(() => {
+          showInitialDisclaimer();
+        }, 5000);
       }
     }
     
@@ -3103,6 +3102,11 @@
           }
         }
         
+        // Check sessionStorage to prevent showing multiple times in same session
+        if (sessionStorage.getItem(SESSION_NOTIFICATION_SHOWN_KEY)) {
+          return false;
+        }
+        
         // Then check if JSON file exists and has valid notification
         const response = await fetch('notification-popup.json');
         if (response.status === 200) {
@@ -3110,14 +3114,7 @@
           
           // Check if notification should be shown
           if (data && data.enabled === true && data.message && data.title) {
-            // Check if this notification was already shown today
-            const notificationKey = `notification_${data.id || data.title}_shown`;
-            const lastShown = localStorage.getItem(notificationKey);
-            const today = new Date().toDateString();
-            
-            if (lastShown !== today) {
-              return true;
-            }
+            return true;
           }
         }
       } catch (error) {
@@ -3137,28 +3134,21 @@
           
           // Check if notification should be shown
           if (data && data.enabled === true && data.message && data.title) {
-            // Check if this notification was already shown today
-            const notificationKey = `notification_${data.id || data.title}_shown`;
-            const lastShown = localStorage.getItem(notificationKey);
-            const today = new Date().toDateString();
+            // Mark as shown in this session
+            sessionStorage.setItem(SESSION_NOTIFICATION_SHOWN_KEY, 'true');
             
-            if (lastShown !== today) {
-              // Show notification popup
-              showNotificationPopup(data);
-              
-              // Mark as shown today
-              localStorage.setItem(notificationKey, today);
-              
-              // Schedule disclaimer to show 3 seconds after closing JSON popup
-              document.getElementById('notificationOverlay').addEventListener('transitionend', function handler(e) {
-                if (!document.getElementById('notificationOverlay').classList.contains('active')) {
-                  document.getElementById('notificationOverlay').removeEventListener('transitionend', handler);
-                  setTimeout(showInitialDisclaimer, 3000);
-                }
-              });
-              
-              return; // JSON notification shown, we're done
-            }
+            // Show notification popup
+            showNotificationPopup(data);
+            
+            // Schedule disclaimer to show 3 seconds after closing JSON popup
+            document.getElementById('notificationOverlay').addEventListener('transitionend', function handler(e) {
+              if (!document.getElementById('notificationOverlay').classList.contains('active')) {
+                document.getElementById('notificationOverlay').removeEventListener('transitionend', handler);
+                setTimeout(showInitialDisclaimer, 3000);
+              }
+            });
+            
+            return; // JSON notification shown, we're done
           }
         }
       } catch (error) {
@@ -3166,7 +3156,9 @@
       }
       
       // If JSON notification couldn't be shown, show disclaimer after 5 seconds
-      setTimeout(showInitialDisclaimer, 5000);
+      setTimeout(() => {
+        showInitialDisclaimer();
+      }, 5000);
     }
     
     // Show initial disclaimer
@@ -3179,11 +3171,6 @@
           sessionStorage.setItem(DISCLAIMER_SHOWN_KEY, 'true');
         }, 8000);
       }
-    }
-    
-    // Function to show JSON popup
-    function showJsonPopup() {
-      // This function is now integrated into checkAndShowInitialPopups
     }
     
     // ====== NOTIFICATION POPUP FUNCTIONS ======
@@ -3201,18 +3188,11 @@
             
             // Check if notification should be shown
             if (data && data.enabled === true && data.message && data.title) {
-              // Check if this notification was already shown today
-              const notificationKey = `notification_${data.id || data.title}_shown`;
-              const lastShown = localStorage.getItem(notificationKey);
-              const today = new Date().toDateString();
+              // Show notification popup
+              showNotificationPopup(data);
               
-              if (lastShown !== today) {
-                // Show notification popup
-                showNotificationPopup(data);
-                
-                // Mark as shown today
-                localStorage.setItem(notificationKey, today);
-              }
+              // Mark as shown in this session
+              sessionStorage.setItem(SESSION_NOTIFICATION_SHOWN_KEY, 'true');
             }
           }
         } catch (error) {
@@ -3281,7 +3261,6 @@
       
       setTimeout(() => {
         localStorage.removeItem(DONT_SHOW_KEY);
-        localStorage.removeItem(JSON_POPUP_KEY);
         // Schedule next midnight check
         setTimeout(checkAndClearAtMidnight, 24 * 60 * 60 * 1000); // 24 hours
       }, timeUntilMidnight);
