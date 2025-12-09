@@ -1,1 +1,23 @@
-f
+{
+  "enabled": true,
+  "id": "welcome_notification_2025",
+  "title": "WELCOME TO XTREME AVIATOR PREDICTOR",
+  "message": "Use our AI-powered SHA512 hash analysis for accurate predictions. Start with small bets and follow the recommended strategies.",
+  "highlight": {
+    "title": "IMPORTANT",
+    "message": "Always verify predictions and manage your risk properly."
+  },
+  "buttons": [
+    {
+      "text": "OK",
+      "action": "close",
+      "type": "primary"
+    },
+    {
+      "text": "INFO",
+      "action": "open_url",
+      "url": "https://damindu817.github.io/DISCLAIMER-/",
+      "type": "secondary"
+    }
+  ]
+}
