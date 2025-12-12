@@ -91,6 +91,13 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: opacity 0.3s ease;
+    }
+    
+    /* NEW: Dimmed header when signal popup is active */
+    .header.dimmed {
+      opacity: 0.3;
+      pointer-events: none;
     }
     
     .header h1 {
@@ -213,6 +220,13 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: 15px;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* NEW: Dimmed scroll container when signal popup is active */
+    .scroll-container.dimmed {
+      opacity: 0.3;
+      pointer-events: none;
     }
     
     /* Main content container with refined styling */
@@ -253,6 +267,13 @@
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       z-index: 2000; /* Increased z-index */
       box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.3s ease;
+    }
+    
+    /* NEW: Dimmed navigation when signal popup is active */
+    .nav-bar.dimmed {
+      opacity: 0.3;
+      pointer-events: none;
     }
     
     .nav-item {
@@ -1280,18 +1301,36 @@
       animation: pulse 2s infinite;
     }
 
-    /* Premium Signal Popup Styles */
+    /* NEW: Special fullscreen overlay for signal popups */
+    .signal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2100; /* Above header and nav */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease-out;
+    }
+    
+    .signal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Premium Signal Popup Styles - UPDATED z-index */
     .signal-container {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1900; /* Above dialog overlay */
+      z-index: 2101; /* Above signal overlay */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-out;
@@ -1313,7 +1352,7 @@
       transform: translateY(20px) scale(0.98);
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
-      z-index: 1901;
+      z-index: 2102;
     }
     
     .signal-container.active .signal-card {
@@ -1532,18 +1571,17 @@
       line-height: 1.3;
     }
     
-    /* RISK SIGNAL Popup Styles */
+    /* RISK SIGNAL Popup Styles - UPDATED z-index */
     .risk-signal-container {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1900; /* Above dialog overlay */
+      z-index: 2101; /* Above signal overlay */
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-out;
@@ -1565,7 +1603,7 @@
       transform: translateY(20px) scale(0.98);
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
-      z-index: 1901;
+      z-index: 2102;
     }
     
     .risk-signal-container.active .risk-signal-card {
@@ -2440,6 +2478,9 @@
   </style>
 </head>
 <body>
+  <!-- NEW: Signal Overlay for Premium & Risk Signals -->
+  <div class="signal-overlay" id="signalOverlay"></div>
+  
   <!-- Popup Overlay for background darkening -->
   <div class="popup-overlay" id="popupOverlay"></div>
 
@@ -2531,7 +2572,7 @@
   <!-- App Structure -->
   <div class="app-container">
     <!-- Fixed Header -->
-    <div class="header">
+    <div class="header" id="mainHeader">
       <h1>XTREME AVIATOR SHA512 HASH</h1>
       <div class="header-settings" onclick="showSettings()">
         <i class="fas fa-cog"></i>
@@ -2539,7 +2580,7 @@
     </div>
     
     <!-- Scrollable Content Area -->
-    <div class="scroll-container">
+    <div class="scroll-container" id="scrollContainer">
       <!-- Main Content Container -->
       <div class="main-container">
         <div class="datetime">
@@ -2751,7 +2792,7 @@
     </div>
     
     <!-- Fixed Navigation Bar -->
-    <div class="nav-bar">
+    <div class="nav-bar" id="navBar">
       <a href="#" class="nav-item active" onclick="switchTab('predictorTab', this)">
         <i class="fas fa-chart-line"></i>
         <span>PREDICTOR</span>
@@ -4068,6 +4109,12 @@
     
     // Enhanced function to show signal popup
     function showSignalPopup(targetTime, odd, signalId) {
+      // Show overlay and dim the main UI
+      document.getElementById("signalOverlay").classList.add("active");
+      document.getElementById("mainHeader").classList.add("dimmed");
+      document.getElementById("scrollContainer").classList.add("dimmed");
+      document.getElementById("navBar").classList.add("dimmed");
+      
       const popup = document.getElementById("signalPopup");
       const timeStr = targetTime.toLocaleTimeString();
       
@@ -4135,6 +4182,12 @@
 
     // Enhanced function to show RISK signal popup
     function showRiskSignalPopup(targetTime, odd, signalId) {
+      // Show overlay and dim the main UI
+      document.getElementById("signalOverlay").classList.add("active");
+      document.getElementById("mainHeader").classList.add("dimmed");
+      document.getElementById("scrollContainer").classList.add("dimmed");
+      document.getElementById("navBar").classList.add("dimmed");
+      
       const popup = document.getElementById("riskSignalPopup");
       const timeStr = targetTime.toLocaleTimeString();
       
@@ -4257,6 +4310,12 @@
       popup.classList.remove("active");
       activeSignalPopup = null;
       
+      // Hide overlay and restore main UI
+      document.getElementById("signalOverlay").classList.remove("active");
+      document.getElementById("mainHeader").classList.remove("dimmed");
+      document.getElementById("scrollContainer").classList.remove("dimmed");
+      document.getElementById("navBar").classList.remove("dimmed");
+      
       // Clear countdown interval
       if (signalCountdownInterval) {
         clearInterval(signalCountdownInterval);
@@ -4269,6 +4328,12 @@
       const popup = document.getElementById("riskSignalPopup");
       popup.classList.remove("active");
       activeSignalPopup = null;
+      
+      // Hide overlay and restore main UI
+      document.getElementById("signalOverlay").classList.remove("active");
+      document.getElementById("mainHeader").classList.remove("dimmed");
+      document.getElementById("scrollContainer").classList.remove("dimmed");
+      document.getElementById("navBar").classList.remove("dimmed");
       
       // Clear countdown interval
       if (riskSignalCountdownInterval) {
