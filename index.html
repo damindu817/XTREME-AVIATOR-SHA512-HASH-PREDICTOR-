@@ -1727,7 +1727,7 @@
       content: '';
       position: absolute;
       width: calc(100% + 8px);
-      height: calc(100% + 8px);
+      height = calc(100% + 8px);
       border-radius: 50%;
       border: 3px solid transparent;
       border-top-color: var(--primary);
@@ -1791,7 +1791,7 @@
     .risk-step-number {
       flex-shrink: 0;
       width: 22px;
-      height: 22px;
+      height = 22px;
       border-radius: 50%;
       background: rgba(255, 0, 110, 0.2);
       display: flex;
@@ -2402,12 +2402,12 @@
       
       .close-btn, .risk-close-btn {
         width: 28px;
-        height: 28px;
+        height = 28px;
       }
       
       .countdown-circle, .risk-countdown-circle {
         width: 90px;
-        height: 90px;
+        height = 90px;
       }
       
       #countdown-timer, #risk-countdown-timer {
@@ -2443,7 +2443,7 @@
       
       .popup-title .badge-icon {
         width: 24px;
-        height: 24px;
+        height = 24px;
         font-size: 1rem;
       }
       
@@ -3005,6 +3005,13 @@
     let unseenNotifications = 0;
     let popupOverlayActive = false;
     
+    // NEW: Time synchronization and background detection variables
+    let lastActiveTime = Date.now();
+    let isAppActive = true;
+    let backgroundSyncInterval = null;
+    let timeDriftThreshold = 5000; // 5 seconds threshold for time drift detection
+    let signalSyncInterval = null;
+    
     // Notification system variables
     let notificationData = null;
     let lastNotificationCheck = 0;
@@ -3031,12 +3038,18 @@
       loadHistory();
       updateStats();
       
+      // NEW: Start background detection and time synchronization
+      initializeBackgroundDetection();
+      
       // Check connection status immediately
       checkConnection();
       
       // Set up connection monitoring
       window.addEventListener('online', checkConnection);
       window.addEventListener('offline', checkConnection);
+      
+      // NEW: Add visibility change event for background/foreground detection
+      document.addEventListener('visibilitychange', handleVisibilityChange);
       
       // Auto-focus input field
       document.getElementById("hashInput").focus();
@@ -3160,6 +3173,9 @@
             // Sync server time
             syncServerTime();
             
+            // NEW: Restart background detection
+            initializeBackgroundDetection();
+            
             // Start notification checking
             startNotificationChecking();
             
@@ -3194,6 +3210,158 @@
       // Check if we should show JSON notification first, then disclaimer
       checkAndShowInitialPopups();
     }
+    
+    // ====== NEW: BACKGROUND DETECTION AND TIME SYNC FUNCTIONS ======
+    
+    function initializeBackgroundDetection() {
+      // Clear any existing intervals
+      if (backgroundSyncInterval) {
+        clearInterval(backgroundSyncInterval);
+      }
+      if (signalSyncInterval) {
+        clearInterval(signalSyncInterval);
+      }
+      
+      // Start background sync monitoring
+      backgroundSyncInterval = setInterval(checkTimeDrift, 10000); // Check every 10 seconds
+      
+      // Start signal synchronization
+      signalSyncInterval = setInterval(syncAllSignals, 1000); // Sync every second
+      
+      // Store initial active time
+      lastActiveTime = Date.now();
+      isAppActive = true;
+      
+      console.log("Background detection and time sync initialized");
+    }
+    
+    function handleVisibilityChange() {
+      if (document.hidden) {
+        // App went to background
+        isAppActive = false;
+        lastActiveTime = Date.now();
+        console.log("App went to background");
+      } else {
+        // App came back to foreground
+        const timeInBackground = Date.now() - lastActiveTime;
+        isAppActive = true;
+        
+        console.log(`App returned from background after ${timeInBackground}ms`);
+        
+        // If app was in background for more than threshold, resync
+        if (timeInBackground > timeDriftThreshold) {
+          console.log("Significant time in background detected, resyncing...");
+          syncServerTime();
+          checkAndUpdateAllSignals();
+        }
+      }
+    }
+    
+    function checkTimeDrift() {
+      if (!isAppActive) {
+        // App is in background, store last active time
+        lastActiveTime = Date.now();
+        return;
+      }
+      
+      // Check if there's significant time drift
+      const currentTime = Date.now();
+      const expectedTime = lastActiveTime + 10000; // 10 seconds later
+      const drift = Math.abs(currentTime - expectedTime);
+      
+      if (drift > timeDriftThreshold) {
+        console.log(`Time drift detected: ${drift}ms, resyncing...`);
+        syncServerTime();
+        checkAndUpdateAllSignals();
+      }
+      
+      lastActiveTime = currentTime;
+    }
+    
+    function syncAllSignals() {
+      if (!isAppActive) {
+        return; // Don't update if app is in background
+      }
+      
+      // Update countdown display based on current time
+      const now = new Date(Date.now() + serverTimeOffset);
+      const history = JSON.parse(localStorage.getItem('aviatorHistory')) || [];
+      
+      // Find the next upcoming signal that hasn't passed yet
+      const upcomingSignals = history.filter(item => {
+        const signalTime = new Date(parseInt(item.timestamp));
+        return signalTime > now;
+      }).sort((a, b) => a.timestamp - b.timestamp);
+      
+      if (upcomingSignals.length > 0) {
+        const nextSignal = upcomingSignals[0];
+        const signalTime = new Date(parseInt(nextSignal.timestamp));
+        updateCountdownDisplay(signalTime, nextSignal.odd);
+      } else {
+        document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
+        document.getElementById("countdown").className = "countdown warning";
+      }
+    }
+    
+    function checkAndUpdateAllSignals() {
+      // This is called when significant time drift is detected
+      console.log("Checking and updating all signals after time drift");
+      
+      const now = new Date(Date.now() + serverTimeOffset);
+      const history = JSON.parse(localStorage.getItem('aviatorHistory')) || [];
+      
+      // Update all active signals
+      const activeSignals = history.filter(item => {
+        const signalTime = new Date(parseInt(item.timestamp));
+        return signalTime > now;
+      });
+      
+      if (activeSignals.length > 0) {
+        const nextSignal = activeSignals.sort((a, b) => a.timestamp - b.timestamp)[0];
+        const signalTime = new Date(parseInt(nextSignal.timestamp));
+        updateCountdownDisplay(signalTime, nextSignal.odd);
+      } else {
+        document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
+        document.getElementById("countdown").className = "countdown warning";
+      }
+    }
+    
+    // NEW: Replaces the old updateCountdown function
+    function updateCountdownDisplay(targetTime, odd) {
+      const now = new Date(Date.now() + serverTimeOffset);
+      const diff = Math.floor((targetTime - now) / 1000);
+      
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = `Signal for ${odd}x reached! Place your bet now!`;
+        document.getElementById("countdown").className = odd === "100" ? "countdown extreme" : "countdown";
+        
+        // Check if we need to play sounds (only if diff just became <= 0)
+        if (diff > -5) { // Within 5 seconds of reaching the signal
+          playSignalSound();
+          playBeepSound();
+        }
+        
+        // Check for next signal after this one completes
+        setTimeout(checkNextSignal, 1000);
+      } else {
+        const min = Math.floor(diff / 60);
+        const sec = diff % 60;
+        document.getElementById("countdown").textContent = `Next ${odd}x signal in: ${min}m ${sec}s`;
+        
+        // Change color based on urgency
+        if (odd === "100") {
+          document.getElementById("countdown").className = "countdown extreme";
+        } else if (diff < 30) {
+          document.getElementById("countdown").className = "countdown danger";
+        } else if (diff < 60) {
+          document.getElementById("countdown").className = "countdown warning";
+        } else {
+          document.getElementById("countdown").className = "countdown";
+        }
+      }
+    }
+    
+    // ====== END OF NEW BACKGROUND DETECTION FUNCTIONS ======
     
     // NEW: Toggle tips popup function
     function toggleTipsPopup() {
@@ -4044,13 +4212,9 @@
       audio.play().catch(e => console.log("Warning sound play failed:", e));
     }
     
-    // Countdown and active signal tracking
+    // NEW: Enhanced signal tracking with background-aware logic
     function updateCountdown(targetTime, odd) {
-      // Clear any existing countdown
-      if (currentCountdown) {
-        clearInterval(currentCountdown);
-      }
-      
+      // Store the signal for background tracking
       const signalId = Date.now();
       activeSignals.push({ id: signalId, time: targetTime, odd });
       
@@ -4073,38 +4237,8 @@
         }, popupDelay);
       }
       
-      currentCountdown = setInterval(() => {
-        const now = new Date(Date.now() + serverTimeOffset);
-        const diff = Math.floor((targetTime - now) / 1000);
-        
-        if (diff <= 0) {
-          clearInterval(currentCountdown);
-          document.getElementById("countdown").textContent = `Signal for ${odd}x reached! Place your bet now!`;
-          document.getElementById("countdown").className = odd === "100" ? "countdown extreme" : "countdown";
-          playSignalSound();
-          playBeepSound(); // Play beep sound when signal is reached
-          highlightActiveSignal(signalId);
-          removeSignal(signalId);
-          
-          // Check for next signal after this one completes
-          setTimeout(checkNextSignal, 1000);
-        } else {
-          const min = Math.floor(diff / 60);
-          const sec = diff % 60;
-          document.getElementById("countdown").textContent = `Next ${odd}x signal in: ${min}m ${sec}s`;
-          
-          // Change color based on urgency
-          if (odd === "100") {
-            document.getElementById("countdown").className = "countdown extreme";
-          } else if (diff < 30) {
-            document.getElementById("countdown").className = "countdown danger";
-          } else if (diff < 60) {
-            document.getElementById("countdown").className = "countdown warning";
-          } else {
-            document.getElementById("countdown").className = "countdown";
-          }
-        }
-      }, 1000);
+      // Initial countdown display
+      updateCountdownDisplay(targetTime, odd);
     }
     
     // Enhanced function to show signal popup
@@ -4148,23 +4282,8 @@
       
       document.getElementById("strategy-steps").innerHTML = strategyContent;
       
-      // Start 20-second countdown
-      let countdown = 20;
-      document.getElementById("countdown-timer").textContent = countdown;
-      
-      if (signalCountdownInterval) {
-        clearInterval(signalCountdownInterval);
-      }
-      
-      signalCountdownInterval = setInterval(() => {
-        countdown--;
-        document.getElementById("countdown-timer").textContent = countdown;
-        
-        if (countdown <= 0) {
-          clearInterval(signalCountdownInterval);
-          closeSignalPopup();
-        }
-      }, 1000);
+      // Start countdown based on current time difference (not interval-based)
+      updateSignalPopupCountdown(targetTime);
       
       // Show popup
       popup.classList.add("active");
@@ -4271,23 +4390,8 @@
       
       document.getElementById("risk-strategy-steps").innerHTML = strategyContent;
       
-      // Start 20-second countdown
-      let countdown = 20;
-      document.getElementById("risk-countdown-timer").textContent = countdown;
-      
-      if (riskSignalCountdownInterval) {
-        clearInterval(riskSignalCountdownInterval);
-      }
-      
-      riskSignalCountdownInterval = setInterval(() => {
-        countdown--;
-        document.getElementById("risk-countdown-timer").textContent = countdown;
-        
-        if (countdown <= 0) {
-          clearInterval(riskSignalCountdownInterval);
-          closeRiskSignalPopup();
-        }
-      }, 1000);
+      // Start countdown based on current time difference
+      updateRiskSignalPopupCountdown(targetTime);
       
       // Show popup and play warning sound
       popup.classList.add("active");
@@ -4303,6 +4407,38 @@
         }, timeUntilSignal);
       }
     }
+    
+    // NEW: Update signal popup countdown based on time difference
+    function updateSignalPopupCountdown(targetTime) {
+      const now = new Date(Date.now() + serverTimeOffset);
+      const diff = Math.floor((targetTime - now) / 1000);
+      const countdown = Math.max(0, Math.min(20, diff));
+      
+      document.getElementById("countdown-timer").textContent = countdown;
+      
+      // Update every second if popup is active
+      if (countdown > 0 && document.getElementById("signalPopup").classList.contains("active")) {
+        setTimeout(() => updateSignalPopupCountdown(targetTime), 1000);
+      } else if (countdown <= 0) {
+        closeSignalPopup();
+      }
+    }
+    
+    // NEW: Update risk signal popup countdown based on time difference
+    function updateRiskSignalPopupCountdown(targetTime) {
+      const now = new Date(Date.now() + serverTimeOffset);
+      const diff = Math.floor((targetTime - now) / 1000);
+      const countdown = Math.max(0, Math.min(20, diff));
+      
+      document.getElementById("risk-countdown-timer").textContent = countdown;
+      
+      // Update every second if popup is active
+      if (countdown > 0 && document.getElementById("riskSignalPopup").classList.contains("active")) {
+        setTimeout(() => updateRiskSignalPopupCountdown(targetTime), 1000);
+      } else if (countdown <= 0) {
+        closeRiskSignalPopup();
+      }
+    }
 
     // Enhanced function to close signal popup
     function closeSignalPopup() {
@@ -4315,12 +4451,6 @@
       document.getElementById("mainHeader").classList.remove("dimmed");
       document.getElementById("scrollContainer").classList.remove("dimmed");
       document.getElementById("navBar").classList.remove("dimmed");
-      
-      // Clear countdown interval
-      if (signalCountdownInterval) {
-        clearInterval(signalCountdownInterval);
-        signalCountdownInterval = null;
-      }
     }
     
     // Function to close RISK signal popup
@@ -4334,14 +4464,9 @@
       document.getElementById("mainHeader").classList.remove("dimmed");
       document.getElementById("scrollContainer").classList.remove("dimmed");
       document.getElementById("navBar").classList.remove("dimmed");
-      
-      // Clear countdown interval
-      if (riskSignalCountdownInterval) {
-        clearInterval(riskSignalCountdownInterval);
-        riskSignalCountdownInterval = null;
-      }
     }
     
+    // NEW: Updated checkNextSignal function
     function checkNextSignal() {
       const now = new Date(Date.now() + serverTimeOffset);
       const history = JSON.parse(localStorage.getItem('aviatorHistory')) || [];
@@ -4355,7 +4480,8 @@
       if (upcomingSignals.length > 0) {
         const nextSignal = upcomingSignals[0];
         const signalTime = new Date(parseInt(nextSignal.timestamp));
-        updateCountdown(signalTime, nextSignal.odd);
+        // Store the signal but don't start interval-based countdown
+        updateCountdownDisplay(signalTime, nextSignal.odd);
       } else {
         document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
         document.getElementById("countdown").className = "countdown warning";
