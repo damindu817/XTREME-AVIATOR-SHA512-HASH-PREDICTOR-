@@ -3021,6 +3021,10 @@
     const DISCLAIMER_SHOWN_KEY = 'xtreme_aviator_disclaimer_shown';
     const SESSION_NOTIFICATION_SHOWN_KEY = 'xtreme_aviator_notification_shown_in_session';
     
+    // Popup countdown interval variables - NEW
+    let signalPopupCountdownInterval = null;
+    let riskSignalPopupCountdownInterval = null;
+    
     // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
       // Set initial placeholder values
@@ -4243,6 +4247,11 @@
     
     // Enhanced function to show signal popup
     function showSignalPopup(targetTime, odd, signalId) {
+      // Clear any existing countdown intervals
+      if (signalPopupCountdownInterval) {
+        clearInterval(signalPopupCountdownInterval);
+      }
+      
       // Show overlay and dim the main UI
       document.getElementById("signalOverlay").classList.add("active");
       document.getElementById("mainHeader").classList.add("dimmed");
@@ -4282,8 +4291,8 @@
       
       document.getElementById("strategy-steps").innerHTML = strategyContent;
       
-      // Start countdown based on current time difference (not interval-based)
-      updateSignalPopupCountdown(targetTime);
+      // Start countdown timer
+      startSignalPopupCountdown(targetTime);
       
       // Show popup
       popup.classList.add("active");
@@ -4301,6 +4310,11 @@
 
     // Enhanced function to show RISK signal popup
     function showRiskSignalPopup(targetTime, odd, signalId) {
+      // Clear any existing countdown intervals
+      if (riskSignalPopupCountdownInterval) {
+        clearInterval(riskSignalPopupCountdownInterval);
+      }
+      
       // Show overlay and dim the main UI
       document.getElementById("signalOverlay").classList.add("active");
       document.getElementById("mainHeader").classList.add("dimmed");
@@ -4390,8 +4404,8 @@
       
       document.getElementById("risk-strategy-steps").innerHTML = strategyContent;
       
-      // Start countdown based on current time difference
-      updateRiskSignalPopupCountdown(targetTime);
+      // Start countdown timer
+      startRiskSignalPopupCountdown(targetTime);
       
       // Show popup and play warning sound
       popup.classList.add("active");
@@ -4408,40 +4422,80 @@
       }
     }
     
-    // NEW: Update signal popup countdown based on time difference
-    function updateSignalPopupCountdown(targetTime) {
+    // NEW: Start signal popup countdown using setInterval
+    function startSignalPopupCountdown(targetTime) {
+      // Clear any existing interval first
+      if (signalPopupCountdownInterval) {
+        clearInterval(signalPopupCountdownInterval);
+      }
+      
+      // Update countdown immediately
+      updateSignalPopupCountdownValue(targetTime);
+      
+      // Start interval to update countdown every second
+      signalPopupCountdownInterval = setInterval(function() {
+        updateSignalPopupCountdownValue(targetTime);
+      }, 1000);
+    }
+    
+    // NEW: Update signal popup countdown value
+    function updateSignalPopupCountdownValue(targetTime) {
       const now = new Date(Date.now() + serverTimeOffset);
       const diff = Math.floor((targetTime - now) / 1000);
       const countdown = Math.max(0, Math.min(20, diff));
       
       document.getElementById("countdown-timer").textContent = countdown;
       
-      // Update every second if popup is active
-      if (countdown > 0 && document.getElementById("signalPopup").classList.contains("active")) {
-        setTimeout(() => updateSignalPopupCountdown(targetTime), 1000);
-      } else if (countdown <= 0) {
-        closeSignalPopup();
+      // Stop interval if countdown reaches 0 or popup is not active
+      if (countdown <= 0 || !document.getElementById("signalPopup").classList.contains("active")) {
+        if (signalPopupCountdownInterval) {
+          clearInterval(signalPopupCountdownInterval);
+          signalPopupCountdownInterval = null;
+        }
       }
     }
     
-    // NEW: Update risk signal popup countdown based on time difference
-    function updateRiskSignalPopupCountdown(targetTime) {
+    // NEW: Start risk signal popup countdown using setInterval
+    function startRiskSignalPopupCountdown(targetTime) {
+      // Clear any existing interval first
+      if (riskSignalPopupCountdownInterval) {
+        clearInterval(riskSignalPopupCountdownInterval);
+      }
+      
+      // Update countdown immediately
+      updateRiskSignalPopupCountdownValue(targetTime);
+      
+      // Start interval to update countdown every second
+      riskSignalPopupCountdownInterval = setInterval(function() {
+        updateRiskSignalPopupCountdownValue(targetTime);
+      }, 1000);
+    }
+    
+    // NEW: Update risk signal popup countdown value
+    function updateRiskSignalPopupCountdownValue(targetTime) {
       const now = new Date(Date.now() + serverTimeOffset);
       const diff = Math.floor((targetTime - now) / 1000);
       const countdown = Math.max(0, Math.min(20, diff));
       
       document.getElementById("risk-countdown-timer").textContent = countdown;
       
-      // Update every second if popup is active
-      if (countdown > 0 && document.getElementById("riskSignalPopup").classList.contains("active")) {
-        setTimeout(() => updateRiskSignalPopupCountdown(targetTime), 1000);
-      } else if (countdown <= 0) {
-        closeRiskSignalPopup();
+      // Stop interval if countdown reaches 0 or popup is not active
+      if (countdown <= 0 || !document.getElementById("riskSignalPopup").classList.contains("active")) {
+        if (riskSignalPopupCountdownInterval) {
+          clearInterval(riskSignalPopupCountdownInterval);
+          riskSignalPopupCountdownInterval = null;
+        }
       }
     }
 
     // Enhanced function to close signal popup
     function closeSignalPopup() {
+      // Clear countdown interval
+      if (signalPopupCountdownInterval) {
+        clearInterval(signalPopupCountdownInterval);
+        signalPopupCountdownInterval = null;
+      }
+      
       const popup = document.getElementById("signalPopup");
       popup.classList.remove("active");
       activeSignalPopup = null;
@@ -4455,6 +4509,12 @@
     
     // Function to close RISK signal popup
     function closeRiskSignalPopup() {
+      // Clear countdown interval
+      if (riskSignalPopupCountdownInterval) {
+        clearInterval(riskSignalPopupCountdownInterval);
+        riskSignalPopupCountdownInterval = null;
+      }
+      
       const popup = document.getElementById("riskSignalPopup");
       popup.classList.remove("active");
       activeSignalPopup = null;
