@@ -4768,46 +4768,128 @@ async function calculateDelay(score, entropy, oddTarget, hash) {
       checkNextSignal();
     }
     
-    // Main prediction function
-    function predict(oddStr) {
-      const hash = document.getElementById("hashInput").value.trim().toLowerCase();
-      const output = document.getElementById("output");
-      
-      if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
-        showErrorDialog("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
-        return;
-      }
-      
-      selectedOdd = oddStr;
-      const entropy = calcEntropy(hash);
-      const score = scoreFromHash(hash);
-      const confidence = calculateConfidence(entropy, score, oddStr, hash);
-      const delay = calculateDelay(score, entropy, oddStr, hash);
-      const future = new Date(Date.now() + serverTimeOffset + delay * 1000);
-      const timeStr = future.toLocaleTimeString();
-      
-      // Update results display
-      document.getElementById("result-odd").textContent = `${oddStr}x`;
-      document.getElementById("result-entropy").textContent = entropy.toFixed(3);
-      document.getElementById("result-score").textContent = score;
-      document.getElementById("result-confidence").textContent = `${confidence}%`;
-      document.getElementById("result-delay").textContent = `${delay} seconds`;
-      document.getElementById("result-time").textContent = timeStr;
-      
-      // Enable copy button only after odd is selected
-      document.getElementById("copyResultBtn").disabled = false;
-      
-      output.style.display = 'block';
-      updateCountdown(future, oddStr);
-      logHistory(oddStr, timeStr, entropy, score, delay, confidence);
-      showSuccessDialog(`Signal for ${oddStr}x generated with ${confidence}% confidence!`);
-      
-      // Scroll to results
-      output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      
-      // Set flag that first signal has been generated
-      firstSignalGenerated = true;
+    // Main prediction function - NOW USING API
+async function predict(oddStr) {
+  const hash = document.getElementById("hashInput").value.trim().toLowerCase();
+  const output = document.getElementById("output");
+  
+  // 1. Hash validation (මුලින්මම වලංගු බව පරීක්ෂා කරන්න)
+  if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
+    showErrorDialog("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
+    return;
+  }
+  
+  // 2. Loading state පෙන්වන්න
+  const originalButtonText = event?.target?.innerHTML || "Predicting...";
+  if (event?.target) {
+    event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+    event.target.disabled = true;
+  }
+  
+  try {
+    // 3. API එකට ඉල්ලීම (මුලින්ම නොමිලේ පරීක්ෂණ API එක භාවිතා කරමු)
+    const apiUrl = "https://jsonplaceholder.typicode.com/posts"; // තාවකාලික පරීක්ෂණ API
+    
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        hash: hash,
+        oddTarget: oddStr,
+        timestamp: new Date().toISOString(),
+        action: "predict"
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
     }
+    
+    // 4. API ප්‍රතිචාරයෙන් දත්ත ලබාගන්න
+    const apiData = await response.json();
+    
+    // 5. තාවකාලිකව දම්මල දත්ත (පසුව සැබෑ API වෙතින් ලැබෙනු ඇත)
+    // NOTE: මෙය තාවකාලික පරීක්ෂණයක් පමණි!
+    const mockData = {
+      success: true,
+      entropy: (Math.random() * 2 + 3.5).toFixed(3),
+      score: Math.floor(Math.random() * 100) + 20,
+      confidence: Math.floor(Math.random() * 30) + 65,
+      delay: parseInt(oddStr) * 45 + Math.floor(Math.random() * 30),
+      signalTime: new Date(Date.now() + (parseInt(oddStr) * 45 * 1000)).toLocaleTimeString()
+    };
+    
+    // 6. ප්‍රතිඵල පෙන්වන්න
+    selectedOdd = oddStr;
+    const future = new Date(Date.now() + serverTimeOffset + mockData.delay * 1000);
+    const timeStr = future.toLocaleTimeString();
+    
+    // Update results display
+    document.getElementById("result-odd").textContent = `${oddStr}x`;
+    document.getElementById("result-entropy").textContent = mockData.entropy;
+    document.getElementById("result-score").textContent = mockData.score;
+    document.getElementById("result-confidence").textContent = `${mockData.confidence}%`;
+    document.getElementById("result-delay").textContent = `${mockData.delay} seconds`;
+    document.getElementById("result-time").textContent = timeStr;
+    
+    // Enable copy button only after odd is selected
+    document.getElementById("copyResultBtn").disabled = false;
+    
+    output.style.display = 'block';
+    updateCountdown(future, oddStr);
+    logHistory(oddStr, timeStr, parseFloat(mockData.entropy), mockData.score, mockData.delay, mockData.confidence);
+    showSuccessDialog(`Signal for ${oddStr}x generated with ${mockData.confidence}% confidence!`);
+    
+    // Scroll to results
+    output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // Set flag that first signal has been generated
+    firstSignalGenerated = true;
+    
+    console.log("API call successful. Real API will be integrated soon.");
+    
+  } catch (error) {
+    // 7. Error handling
+    console.error("Prediction error:", error);
+    showErrorDialog("Failed to generate prediction. Please check your internet connection and try again.");
+    
+    // Fallback to mock data for testing
+    const fallbackData = {
+      entropy: "4.215",
+      score: 72,
+      confidence: 78,
+      delay: parseInt(oddStr) * 45,
+      signalTime: new Date(Date.now() + (parseInt(oddStr) * 45 * 1000)).toLocaleTimeString()
+    };
+    
+    // Show fallback results
+    selectedOdd = oddStr;
+    const future = new Date(Date.now() + serverTimeOffset + fallbackData.delay * 1000);
+    const timeStr = future.toLocaleTimeString();
+    
+    document.getElementById("result-odd").textContent = `${oddStr}x`;
+    document.getElementById("result-entropy").textContent = fallbackData.entropy;
+    document.getElementById("result-score").textContent = fallbackData.score;
+    document.getElementById("result-confidence").textContent = `${fallbackData.confidence}%`;
+    document.getElementById("result-delay").textContent = `${fallbackData.delay} seconds`;
+    document.getElementById("result-time").textContent = timeStr;
+    document.getElementById("copyResultBtn").disabled = false;
+    
+    output.style.display = 'block';
+    updateCountdown(future, oddStr);
+    logHistory(oddStr, timeStr, parseFloat(fallbackData.entropy), fallbackData.score, fallbackData.delay, fallbackData.confidence);
+    showSuccessDialog(`Signal for ${oddStr}x generated with ${fallbackData.confidence}% confidence! (Offline Mode)`);
+    
+  } finally {
+    // 8. Restore button state
+    if (event?.target) {
+      event.target.innerHTML = originalButtonText;
+      event.target.disabled = false;
+    }
+  }
+}
     
     // Function to record actual results (call this after a round completes)
     function recordResult(signalId, actualMultiplier) {
