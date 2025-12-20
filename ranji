@@ -1,0 +1,2731 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>R RANJI MASTER CASH AGENTS | Premium Gaming Finance</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Disable text selection */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      height: 100vh;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #2c3e50;
+      line-height: 1.6;
+      touch-action: manipulation;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* Allow selection for copyable text */
+    .copyable {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+      cursor: pointer;
+      padding: 2px 5px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .copyable:hover {
+      background-color: rgba(255, 204, 0, 0.1);
+    }
+    
+    .copyable:active {
+      background-color: rgba(255, 204, 0, 0.2);
+    }
+    
+    :root {
+      --primary: #ffcc00; /* Bright Yellow */
+      --primary-dark: #e6b800;
+      --secondary: #27ae60; /* Emerald Green */
+      --danger: #e74c3c; /* Soft Red */
+      --success: #2ecc71; /* Bright Green */
+      --warning: #f39c12; /* Orange */
+      --light-1: #ffffff;
+      --light-2: #f8f9fa;
+      --light-3: #e9ecef;
+      --dark-1: #2c3e50;
+      --dark-2: #34495e;
+      --accent: #9b59b6; /* Purple */
+      --whatsapp: #25D366;
+      --telegram: #0088cc;
+      --youtube: #FF0000;
+      --facebook: #1877F2;
+      --email: #EA4335;
+      --nav-height: 65px;
+      --header-height: 85px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Hide scrollbars but keep scrolling */
+    ::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      background: transparent;
+    }
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    /* Language Selection Screen */
+    .language-selection {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--primary) 0%, #ffdd44 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .language-selection.hidden {
+      display: none;
+    }
+    
+    .language-logo {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--primary);
+      border: 5px solid white;
+      box-shadow: 0 0 0 5px var(--secondary), 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .language-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--dark-1);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    
+    .language-subtitle {
+      font-size: 1rem;
+      color: var(--dark-2);
+      margin-bottom: 40px;
+      text-align: center;
+      max-width: 300px;
+    }
+    
+    .language-buttons {
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .language-btn {
+      padding: 18px;
+      border-radius: 15px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .language-btn.sinhala {
+      background: linear-gradient(135deg, var(--secondary), var(--success));
+      color: white;
+    }
+    
+    .language-btn.english {
+      background: linear-gradient(135deg, var(--primary), var(--warning));
+      color: var(--dark-1);
+    }
+    
+    .language-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* App container structure */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+      display: none;
+    }
+    
+    .app-container.visible {
+      display: flex;
+    }
+    
+    /* Header with bright theme - FIXED */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: linear-gradient(90deg, var(--primary) 0%, #ffdd44 100%);
+      padding: 10px 20px;
+      z-index: 2000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(255, 204, 0, 0.2);
+      border-bottom: 3px solid var(--secondary);
+      flex-wrap: wrap;
+      /* Prevent any transformation/translation */
+      transform: none !important;
+      transition: none !important;
+    }
+    
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-icon {
+      color: var(--dark-1);
+      font-size: 1.5rem;
+      background: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border: 3px solid var(--secondary);
+    }
+    
+    .header-text {
+      flex-grow: 1;
+    }
+    
+    .header h1 {
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.2;
+      color: var(--dark-1);
+      text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+    }
+    
+    .header-subtitle {
+      font-size: 0.7rem;
+      color: var(--dark-2);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+    
+    /* PROMO REMOVED FROM HEADER - Only kept in main banner */
+    
+    /* Language Switcher Button in Header */
+    .language-switcher {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2001;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border: 2px solid var(--primary);
+      transition: all 0.3s ease;
+    }
+    
+    .language-switcher:hover {
+      transform: scale(1.1);
+      background: white;
+    }
+    
+    .language-switcher i {
+      color: var(--dark-1);
+      font-size: 1.2rem;
+    }
+    
+    /* Main logo/profile section */
+    .main-logo-section {
+      text-align: center;
+      padding: 20px 15px;
+      background: linear-gradient(135deg, var(--primary) 0%, #ffdd44 100%);
+      margin-bottom: 20px;
+      border-radius: 0 0 30px 30px;
+      box-shadow: 0 4px 20px rgba(255, 204, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      margin-top: 30px;
+    }
+    
+    .main-logo {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--primary);
+      border: 5px solid white;
+      box-shadow: 0 0 0 5px var(--secondary), 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .company-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--dark-1);
+      margin-bottom: 5px;
+      text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+    }
+    
+    .company-tagline {
+      color: var(--dark-2);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    /* Navigation bar - Fixed at bottom */
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: white;
+      display: flex;
+      border-top: 2px solid var(--light-3);
+      z-index: 2000;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+      /* Prevent any transformation/translation */
+      transform: none !important;
+      transition: none !important;
+    }
+    
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-2);
+      text-decoration: none;
+      font-size: 0.7rem;
+      transition: all 0.3s ease;
+      position: relative;
+      background: white;
+      padding: 8px 5px;
+    }
+    
+    .nav-item i {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-item.active {
+      color: var(--primary);
+      background: rgba(255, 204, 0, 0.1);
+    }
+    
+    .nav-item.active i {
+      transform: translateY(-3px);
+      color: var(--primary);
+    }
+    
+    /* Notification badge */
+    .notification-badge {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: var(--danger);
+      color: white;
+      font-size: 0.6rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* Scrollable content area - Only this area scrolls */
+    .scroll-container {
+      position: fixed;
+      top: var(--header-height);
+      bottom: var(--nav-height);
+      left: 0;
+      right: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0;
+      background: var(--light-2);
+    }
+    
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      padding-bottom: 20px;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Promo Banner */
+    .promo-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #ffdd44 100%);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 15px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(255, 204, 0, 0.2);
+      border: 3px solid white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .promo-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.1) 45%,
+        rgba(255,255,255,0.15) 50%,
+        rgba(255,255,255,0.1) 55%,
+        rgba(255,255,255,0) 100%
+      );
+      transform: rotate(30deg);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+    
+    .promo-code {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--dark-1);
+      text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+      letter-spacing: 3px;
+      margin: 15px 0;
+      background: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      border: 2px dashed var(--secondary);
+    }
+    
+    /* Section Cards */
+    .section-card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      border: 2px solid var(--light-3);
+    }
+    
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--dark-1);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--primary);
+    }
+    
+    /* Image Slider */
+    .image-slider-container {
+      margin: 20px 15px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      height: 200px;
+    }
+    
+    .image-slider {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    
+    .slide-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: white;
+      padding: 15px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .slider-controls {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      z-index: 10;
+    }
+    
+    .slider-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .slider-dot.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+    
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+      color: var(--dark-1);
+      font-size: 1.2rem;
+    }
+    
+    .slider-nav:hover {
+      background: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .slider-prev {
+      left: 15px;
+    }
+    
+    .slider-next {
+      right: 15px;
+    }
+    
+    /* Social Media Buttons under slider - Horizontal layout */
+    .social-buttons-container {
+      display: flex;
+      gap: 12px;
+      margin: 15px 15px 25px;
+      justify-content: center;
+    }
+    
+    .social-btn {
+      flex: 1;
+      max-width: 150px;
+      padding: 15px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .social-btn i {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    
+    .social-btn.youtube { 
+      background: linear-gradient(135deg, var(--youtube), #CC0000); 
+      color: white; 
+    }
+    
+    .social-btn.facebook { 
+      background: linear-gradient(135deg, var(--facebook), #0D5FD9); 
+      color: white; 
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Banking Cards */
+    .bank-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .bank-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      border: 2px solid #e0e0e0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bank-card:hover {
+      border-color: var(--success);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(46, 204, 113, 0.15);
+    }
+    
+    .bank-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .bank-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid var(--light-3);
+    }
+    
+    .bank-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+    
+    .bank-details {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--dark-2);
+      flex-grow: 1;
+    }
+    
+    .detail-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      padding: 5px 0;
+    }
+    
+    .detail-label {
+      color: var(--dark-1);
+      font-weight: 600;
+      min-width: 160px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* UPDATED: Account number highlight for both label and value */
+    .account-number-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 8px;
+      background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 204, 0, 0.05));
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .account-number-row::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--warning));
+    }
+    
+    .account-number-label {
+      color: var(--dark-1);
+      font-weight: 700;
+      min-width: 160px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+    
+    .account-number-value {
+      flex: 1;
+      color: var(--dark-1);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .detail-value {
+      flex: 1;
+      color: var(--dark-2);
+    }
+    
+    .copy-indicator {
+      display: inline-block;
+      margin-left: 8px;
+      color: var(--primary);
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .copyable.copied .copy-indicator {
+      opacity: 1;
+    }
+    
+    /* Bank Warning Note - BOC and People's Bank specific */
+    .bank-warning-note {
+      background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.05));
+      border: 2px solid var(--danger);
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+      color: var(--danger);
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bank-warning-note::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--danger), #c0392b);
+    }
+    
+    .bank-warning-note i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+    
+    /* Withdrawal Cards */
+    .withdrawal-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .withdrawal-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      border: 2px solid #ffecb3;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .withdrawal-card:hover {
+      border-color: var(--warning);
+      transform: translateX(5px);
+    }
+    
+    .platform-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .platform-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid var(--light-3);
+    }
+    
+    .platform-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+    
+    .withdrawal-details {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--dark-2);
+    }
+    
+    /* Notification Items */
+    .notification-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .notification-item {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      border-left: 5px solid var(--primary);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .notification-item.new {
+      border-left-color: var(--success);
+      background: linear-gradient(to right, rgba(46, 204, 113, 0.05), white);
+    }
+    
+    .notification-item.important {
+      border-left-color: var(--danger);
+      background: linear-gradient(to right, rgba(231, 76, 60, 0.05), white);
+    }
+    
+    .notification-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .notification-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    .notification-title {
+      font-weight: 700;
+      color: var(--dark-1);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .notification-date {
+      font-size: 0.8rem;
+      color: var(--dark-2);
+    }
+    
+    .notification-content {
+      color: var(--dark-2);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .notification-badge-new {
+      background: var(--success);
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 10px;
+    }
+    
+    /* Contact Grid - Same as Home page */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .contact-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-btn i {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    
+    .contact-btn.whatsapp { background: linear-gradient(135deg, var(--whatsapp), #128C7E); color: white; }
+    .contact-btn.telegram { background: linear-gradient(135deg, var(--telegram), #006699); color: white; }
+    .contact-btn.youtube { background: linear-gradient(135deg, var(--youtube), #CC0000); color: white; }
+    .contact-btn.facebook { background: linear-gradient(135deg, var(--facebook), #0D5FD9); color: white; }
+    .contact-btn.email { background: linear-gradient(135deg, var(--email), #D14836); color: white; }
+    .contact-btn.phone { background: linear-gradient(135deg, var(--success), var(--secondary)); color: white; }
+    
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Gaming Platform Logos */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .platform-logo-card {
+      background: white;
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 2px solid var(--light-3);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--dark-1);
+      height: 100px;
+    }
+    
+    .platform-logo-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 8px 20px rgba(255, 204, 0, 0.15);
+    }
+    
+    .platform-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      overflow: hidden;
+      border: 2px solid var(--light-3);
+    }
+    
+    .platform-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 5px;
+    }
+    
+    .platform-logo-name {
+      font-weight: 700;
+      font-size: 0.7rem;
+      color: var(--dark-1);
+      line-height: 1.2;
+    }
+    
+    /* Direct Access Logos */
+    .direct-access-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .direct-access-card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px 10px;
+      border: 2px solid var(--light-3);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--dark-1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100px;
+    }
+    
+    .direct-access-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(155, 89, 182, 0.15);
+    }
+    
+    .direct-access-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #8e44ad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .direct-access-name {
+      font-weight: 700;
+      font-size: 0.75rem;
+      margin-bottom: 3px;
+    }
+    
+    .direct-access-desc {
+      font-size: 0.65rem;
+      color: var(--dark-2);
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .action-btn {
+      flex: 1;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      border: none;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .action-btn.bank {
+      background: linear-gradient(135deg, var(--secondary), var(--success));
+      color: white;
+    }
+    
+    .action-btn.withdrawal {
+      background: linear-gradient(135deg, var(--warning), #ff9800);
+      color: white;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Center Success Toast */
+    .success-toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: var(--success);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+      z-index: 3000;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      max-width: 80%;
+      text-align: center;
+    }
+    
+    .success-toast.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    /* Disclaimer Badge */
+    .disclaimer-badge {
+      position: fixed;
+      bottom: 75px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--danger), #c0392b);
+      color: white;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1950;
+      box-shadow: 0 6px 25px rgba(231, 76, 60, 0.4);
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+      animation: pulseWarning 2s infinite;
+    }
+    
+    @keyframes pulseWarning {
+      0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+    }
+    
+    /* Disclaimer Popup */
+    .disclaimer-popup {
+      position: fixed;
+      bottom: 140px;
+      right: 20px;
+      width: 320px;
+      max-width: 90%;
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      border: 3px solid var(--danger);
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1951;
+      pointer-events: none;
+      display: none;
+    }
+    
+    .disclaimer-popup.show {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+      display: block;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .platforms-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .direct-access-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .language-switcher {
+        top: 12px;
+        right: 12px;
+        width: 35px;
+        height: 35px;
+      }
+      
+      .account-number-label {
+        min-width: 140px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .platforms-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .direct-access-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .header h1 {
+        font-size: 0.95rem;
+      }
+      
+      .nav-item {
+        font-size: 0.65rem;
+        padding: 6px 3px;
+      }
+      
+      .nav-item i {
+        font-size: 1.2rem;
+      }
+      
+      .section-card {
+        padding: 20px 15px;
+        margin: 15px 10px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .detail-label {
+        min-width: 140px;
+      }
+      
+      .account-number-label {
+        min-width: 130px;
+        font-size: 0.9rem;
+      }
+      
+      .account-number-value {
+        font-size: 0.95rem;
+      }
+      
+      .disclaimer-badge {
+        width: 50px;
+        height: 50px;
+        bottom: 65px;
+        right: 15px;
+      }
+      
+      .disclaimer-popup {
+        bottom: 125px;
+        right: 15px;
+        width: calc(100% - 30px);
+        padding: 20px;
+      }
+      
+      .social-buttons-container {
+        flex-wrap: wrap;
+      }
+      
+      .social-btn {
+        max-width: 48%;
+        min-width: 140px;
+      }
+      
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .language-switcher {
+        top: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+      }
+      
+      .language-switcher i {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .platforms-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .direct-access-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .platform-logo-card, .direct-access-card {
+        height: 90px;
+        padding: 10px 6px;
+      }
+      
+      .platform-logo {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .platform-logo-name {
+        font-size: 0.65rem;
+      }
+      
+      .direct-access-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+      
+      .direct-access-name {
+        font-size: 0.7rem;
+      }
+      
+      .direct-access-desc {
+        font-size: 0.6rem;
+      }
+      
+      .nav-item {
+        font-size: 0.6rem;
+      }
+      
+      .social-buttons-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .social-btn {
+        max-width: 48%;
+        min-width: 140px;
+      }
+      
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .account-number-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .account-number-label {
+        min-width: 100%;
+      }
+    }
+    
+    /* For very small screens */
+    @media (max-width: 360px) {
+      .platforms-grid, .direct-access-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      
+      .detail-label {
+        min-width: 120px;
+        font-size: 0.85rem;
+      }
+      
+      .platform-logo-card, .direct-access-card {
+        padding: 10px 5px;
+        height: 85px;
+      }
+      
+      .nav-item {
+        font-size: 0.55rem;
+      }
+      
+      .nav-item i {
+        font-size: 1.1rem;
+      }
+      
+      .social-buttons-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .social-btn {
+        max-width: 100%;
+        min-width: 100%;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Selection Screen -->
+  <div class="language-selection" id="languageSelection">
+    <div class="language-logo">
+      <i class="fas fa-coins"></i>
+    </div>
+    <div class="language-title">R RANJI MASTER CASH AGENTS</div>
+    <div class="language-subtitle">ඔබගේ විශ්වාසනීය ගේමින් මූල්‍ය සහායකයා</div>
+    <div class="language-buttons">
+      <button class="language-btn sinhala" onclick="selectLanguage('si')">
+        <i class="fas fa-language"></i>
+        සිංහල
+      </button>
+      <button class="language-btn english" onclick="selectLanguage('en')">
+        <i class="fas fa-globe"></i>
+        English
+      </button>
+    </div>
+  </div>
+  
+  <!-- App Structure -->
+  <div class="app-container" id="appContainer">
+    <!-- Fixed Header - PROMO REMOVED -->
+    <div class="header" id="mainHeader">
+      <div class="header-logo">
+        <div class="logo-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <div class="header-text">
+          <h1 id="headerTitle">R RANJI MASTER CASH AGENTS</h1>
+          <div class="header-subtitle" id="headerSubtitle">Premium Gaming Finance Solutions</div>
+        </div>
+      </div>
+      
+      <!-- Language Switcher Button -->
+      <div class="language-switcher" id="languageSwitcher" onclick="showLanguageSelection()">
+        <i class="fas fa-language"></i>
+      </div>
+    </div>
+    
+    <!-- Main logo/profile section -->
+    <div class="main-logo-section">
+      <div class="main-logo">
+        <i class="fas fa-coins"></i>
+      </div>
+      <div class="company-name" id="companyName">R RANJI MASTER CASH AGENTS</div>
+      <div class="company-tagline" id="companyTagline">Your Trusted Gaming Finance Partner</div>
+    </div>
+    
+    <!-- Scrollable Content Area -->
+    <div class="scroll-container" id="scrollContainer">
+      <!-- Dashboard Tab -->
+      <div class="tab-content active" id="dashboardTab">
+        <!-- Promo Banner -->
+        <div class="promo-banner">
+          <div><i class="fas fa-star"></i> <span id="promoTitle">EXCLUSIVE PROMOTION</span> <i class="fas fa-star"></i></div>
+          <div class="promo-code">RRANJI</div>
+          <div style="font-weight: 700; color: var(--dark-1);" id="promoDescription">Use this code on ALL gaming platforms!</div>
+          <div class="promo-note" id="promoNote">Bonus credits on all supported platforms</div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="section-card">
+          <div class="action-buttons">
+            <button class="action-btn bank" onclick="switchTab('bankTab')">
+              <i class="fas fa-university"></i> <span id="bankButtonText">Bank Details</span>
+            </button>
+            <button class="action-btn withdrawal" onclick="switchTab('withdrawalTab')">
+              <i class="fas fa-map-marker-alt"></i> <span id="withdrawalButtonText">Withdrawal Details</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Image Slider -->
+        <div class="image-slider-container" id="imageSlider">
+          <div class="image-slider" id="sliderTrack">
+            <!-- Slides will be added by JavaScript -->
+          </div>
+          <div class="slider-nav slider-prev" onclick="prevSlide()">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+          <div class="slider-nav slider-next" onclick="nextSlide()">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <div class="slider-controls" id="sliderDots">
+            <!-- Dots will be added by JavaScript -->
+          </div>
+        </div>
+        
+        <!-- YouTube & Facebook Buttons under slider - Horizontal layout -->
+        <div class="social-buttons-container">
+          <a href="https://youtube.com/@rranjiofficial?si=pUH9pC1ZNyeZ2vdp">
+            <i class="fab fa-youtube"></i>
+            <span>YouTube</span>
+          </a>
+          <a href="https://www.facebook.com/share/1EqdANHzy3/">
+            <i class="fab fa-facebook"></i>
+            <span>Facebook</span>
+          </a>
+        </div>
+        
+        <!-- Gaming Platforms with Logos -->
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-gamepad"></i> <span id="platformsTitle">Supported Gaming Platforms</span>
+          </div>
+          <div class="platforms-grid" id="platformsGrid">
+            <!-- Platform logos will be added by JavaScript -->
+          </div>
+        </div>
+        
+        <!-- Direct Access to Gaming Platforms -->
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-external-link-alt"></i> <span id="directAccessTitle">Direct Platform Access</span>
+          </div>
+          <p style="color: var(--dark-2); margin-bottom: 15px; font-size: 0.9rem;" id="directAccessDescription">
+            Click on any platform below to download their app through our referral:
+          </p>
+          <div class="direct-access-grid" id="directAccessGrid">
+            <!-- Direct access cards will be added by JavaScript -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bank Details Tab -->
+      <div class="tab-content" id="bankTab">
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-university"></i> <span id="bankDetailsTitle">Bank Details for Deposits</span>
+          </div>
+          <p style="color: var(--dark-2); margin-bottom: 15px; font-size: 0.9rem;" id="bankInstructions">
+            Click on any detail below to copy it to your clipboard:
+          </p>
+          <div class="bank-grid" id="bankGrid">
+            <!-- Bank cards will be added by JavaScript -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Withdrawal Details Tab -->
+      <div class="tab-content" id="withdrawalTab">
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-map-marker-alt"></i> <span id="withdrawalTitle">Withdrawal Addresses</span>
+          </div>
+          <p style="color: var(--dark-2); margin-bottom: 15px; font-size: 0.9rem;" id="withdrawalInstructions">
+            Click on any detail below to copy it to your clipboard:
+          </p>
+          <div class="withdrawal-grid" id="withdrawalGrid">
+            <!-- Withdrawal cards will be added by JavaScript -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Notification Tab -->
+      <div class="tab-content" id="notificationTab">
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-bell"></i> <span id="notificationsTitle">Notifications & Updates</span>
+            <span class="notification-badge" id="notificationCount">3</span>
+          </div>
+          <p style="color: var(--dark-2); margin-bottom: 15px; font-size: 0.9rem;" id="notificationsDescription">
+            Latest updates, promotions, and important announcements:
+          </p>
+          <div class="notification-list" id="notificationList">
+            <!-- Notifications will be added by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-bullhorn"></i> <span id="recentPromotionsTitle">Recent Promotions</span>
+          </div>
+          <div class="notification-list">
+            <div class="notification-item important">
+              <div class="notification-header">
+                <div class="notification-title">
+                  <i class="fas fa-gift" style="color: var(--danger);"></i>
+                  <span id="promo1Title">SPECIAL BONUS OFFER</span>
+                </div>
+                <div class="notification-date" id="promo1Date">Today</div>
+              </div>
+              <div class="notification-content" id="promo1Content">
+                Get 15% extra bonus on deposits above Rs. 5000 this weekend! Use code <strong>WEEKEND15</strong> when sending your deposit slip.
+              </div>
+            </div>
+            
+            <div class="notification-item">
+              <div class="notification-header">
+                <div class="notification-title">
+                  <i class="fas fa-star" style="color: var(--primary);"></i>
+                  <span id="promo2Title">New Platform Added</span>
+                </div>
+                <div class="notification-date" id="promo2Date">2 days ago</div>
+              </div>
+              <div class="notification-content" id="promo2Content">
+                We've added <strong>MEGA CASINO</strong> to our supported platforms. Get exclusive 20% welcome bonus for first-time deposits.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contacts Tab -->
+      <div class="tab-content" id="contactsTab">
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-address-book"></i> <span id="contactsTitle">Contact Us</span>
+          </div>
+          <p style="color: var(--dark-2); margin-bottom: 15px; font-size: 0.9rem;" id="contactsDescription">
+            Get in touch with us through any of these channels:
+          </p>
+          <div class="contact-grid">
+            <a href="https://wa.me/94701661588" target="_blank" class="contact-btn whatsapp">
+              <i class="fab fa-whatsapp"></i> <span id="whatsapp1Text">WhatsApp 1</span>
+            </a>
+            <a href="https://wa.me/94712345678" target="_blank" class="contact-btn whatsapp">
+              <i class="fab fa-whatsapp"></i> <span id="whatsapp2Text">WhatsApp 2</span>
+            </a>
+            <a href="tel:+94701661588" class="contact-btn phone">
+              <i class="fas fa-phone"></i> <span id="call1Text">Call 1</span>
+            </a>
+            <a href="tel:+94712345678" class="contact-btn phone">
+              <i class="fas fa-phone"></i> <span id="call2Text">Call 2</span>
+            </a>
+            <a href="https://t.me/ranji_master_agents" target="_blank" class="contact-btn telegram">
+              <i class="fab fa-telegram"></i> <span id="telegramText">Telegram</span>
+            </a>
+            <a href="mailto:ranji@cashagents.com" class="contact-btn email">
+              <i class="fas fa-envelope"></i> <span id="emailText">Email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Support Tab -->
+      <div class="tab-content" id="supportTab">
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-question-circle"></i> <span id="howToUseTitle">How to Use Our Service</span>
+          </div>
+          <div style="line-height: 1.8; color: var(--dark-2);">
+            <div style="margin-bottom: 15px; padding: 12px; background: #e8f5e9; border-radius: 10px; border-left: 4px solid var(--success);">
+              <strong id="step1Title">Step 1:</strong> <span id="step1Desc">Choose your gaming platform from our supported list</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 12px; background: #fff8e1; border-radius: 10px; border-left: 4px solid var(--warning);">
+              <strong id="step2Title">Step 2:</strong> <span id="step2Desc">Use promo code <span style="color: var(--primary); font-weight: 800;">RRANJI</span> during registration</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 12px; background: #e3f2fd; border-radius: 10px; border-left: 4px solid var(--telegram);">
+              <strong id="step3Title">Step 3:</strong> <span id="step3Desc">Deposit funds using our bank details</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 12px; background: #fce4ec; border-radius: 10px; border-left: 4px solid var(--accent);">
+              <strong id="step4Title">Step 4:</strong> <span id="step4Desc">Send deposit slip via WhatsApp for instant processing</span>
+            </div>
+            <div style="padding: 12px; background: #e8eaf6; border-radius: 10px; border-left: 4px solid var(--primary);">
+              <strong id="step5Title">Step 5:</strong> <span id="step5Desc">For withdrawals, use provided addresses and submit receipt</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-card">
+          <div class="section-title">
+            <i class="fas fa-shield-alt"></i> <span id="securityTitle">Security Guidelines</span>
+          </div>
+          <ul style="padding-left: 20px; line-height: 1.8; color: var(--dark-2);" id="securityList">
+            <li id="security1">Never share your gaming account credentials with anyone</li>
+            <li id="security2">Always verify agent identity before transactions</li>
+            <li id="security3">Keep transaction receipts for reference</li>
+            <li id="security4">Report suspicious activity immediately</li>
+            <li id="security5">Use only official contact channels provided here</li>
+            <li id="security6">Deposit only to verified bank accounts listed here</li>
+            <li id="security7">Contact us directly for any verification needs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fixed Navigation Bar - Updated with 4 items -->
+    <div class="nav-bar" id="navBar">
+      <a href="#" class="nav-item active" onclick="switchTab('dashboardTab', this)">
+        <i class="fas fa-home"></i>
+        <span id="navHome">HOME</span>
+      </a>
+      <a href="#" class="nav-item" onclick="switchTab('notificationTab', this)">
+        <i class="fas fa-bell"></i>
+        <span id="navNotifications">NOTIFICATIONS</span>
+        <span class="notification-badge" id="navNotificationCount">3</span>
+      </a>
+      <a href="#" class="nav-item" onclick="switchTab('contactsTab', this)">
+        <i class="fas fa-address-book"></i>
+        <span id="navContacts">CONTACTS</span>
+      </a>
+      <a href="#" class="nav-item" onclick="switchTab('supportTab', this)">
+        <i class="fas fa-question-circle"></i>
+        <span id="navSupport">SUPPORT</span>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Disclaimer Badge -->
+  <div class="disclaimer-badge" id="disclaimerBadge" onclick="toggleDisclaimer()">
+    <i class="fas fa-exclamation-triangle"></i>
+  </div>
+  
+  <!-- Disclaimer Popup -->
+  <div class="disclaimer-popup" id="disclaimerPopup">
+    <h4><i class="fas fa-exclamation-triangle"></i> <span id="disclaimerTitle">IMPORTANT DISCLAIMER</span></h4>
+    <p id="disclaimerText1">This service facilitates financial transactions for gaming platforms. Users must be 18+ and comply with local gambling laws. We are not responsible for gaming losses.</p>
+    <p id="disclaimerText2">Always gamble responsibly. Only deposit what you can afford to lose. Seek help if gambling becomes problematic.</p>
+    <div style="margin-top: 15px; padding: 12px; background: #fff8e1; border-radius: 8px; border-left: 4px solid var(--warning);">
+      <div style="font-weight: 700; color: var(--dark-1); display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-phone-alt" style="color: var(--warning);"></i>
+        <span id="helplineText">Gambling Helpline: 1337</span>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--dark-2); margin-top: 5px;" id="helplineDescription">If you need help with gambling addiction</div>
+    </div>
+  </div>
+  
+  <!-- Center Success Toast -->
+  <div class="success-toast" id="successToast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+
+  <script>
+    // Global variables
+    let currentSlide = 0;
+    let slideInterval;
+    let lastScrollTop = 0;
+    let currentLanguage = 'si'; // Default language is Sinhala
+    
+    // Language data
+    const translations = {
+      si: {
+        // Language selection
+        languageTitle: "R RANJI MASTER CASH AGENTS",
+        languageSubtitle: "ඔබගේ විශ්වාසනීය ගේමින් මූල්‍ය සහායකයා",
+        sinhalaButton: "සිංහල",
+        englishButton: "English",
+        
+        // Header
+        headerTitle: "R RANJI MASTER CASH AGENTS",
+        headerSubtitle: "විශේෂ ගේමින් මූල්‍ය සේවා",
+        
+        // Company
+        companyName: "R RANJI MASTER CASH AGENTS",
+        companyTagline: "ඔබගේ විශ්වාසනීය ගේමින් මූල්‍ය සහකරු",
+        
+        // Promo Banner
+        promoTitle: "විශේෂ ප්‍රවර්ධනය",
+        promoDescription: "සියලුම ගේමින් වේදිකාවල මෙම කේතය භාවිතා කරන්න!",
+        promoNote: "සියලුම සහායක වේදිකාවල බෝනස් ක්‍රෙඩිට්",
+        
+        // Action Buttons
+        bankButtonText: "බැංකු විස්තර",
+        withdrawalButtonText: "ආපසු ගැනීමේ විස්තර",
+        
+        // Platforms
+        platformsTitle: "සහාය දක්වන ගේමින් වේදිකා",
+        directAccessTitle: "සෘජු වේදිකා ප්‍රවේශය",
+        directAccessDescription: "අපගේ යොමුකිරීම හරහා ඔවුන්ගේ යෙදුම බාගත කිරීමට ඕනෑම වේදිකාවක් මත ක්ලික් කරන්න:",
+        
+        // Bank Tab
+        bankDetailsTitle: "බැංකු තැන්පතු විස්තර",
+        bankInstructions: "ඔබගේ ක්ලිප්බෝඩ් වෙත පිටපත් කිරීමට පහත ඕනෑම විස්තරයක් මත ක්ලික් කරන්න:",
+        
+        // Withdrawal Tab
+        withdrawalTitle: "ආපසු ගැනීමේ ලිපින",
+        withdrawalInstructions: "ඔබගේ ක්ලිප්බෝඩ් වෙත පිටපත් කිරීමට පහත ඕනෑම විස්තරයක් මත ක්ලික් කරන්න:",
+        
+        // Notifications Tab
+        notificationsTitle: "දැනුම්දීම් සහ යාවත්කාලීන කිරීම්",
+        notificationsDescription: "අලුත්ම යාවත්කාලීන කිරීම්, ප්‍රවර්ධන සහ වැදගත් නිවේදන:",
+        recentPromotionsTitle: "මෑත ප්‍රවර්ධන",
+        promo1Title: "විශේෂ බෝනස් පොරොන්දුව",
+        promo1Date: "අද",
+        promo1Content: "මෙම සති අන්තයේ රුපියල් 5000ට වැඩි තැන්පතු සඳහා අමතර 15% බෝනස් ලබාගන්න! ඔබගේ තැන්පතු පත යවන විට <strong>WEEKEND15</strong> කේතය භාවිතා කරන්න.",
+        promo2Title: "නව වේදිකාවක් එකතු කරන ලදි",
+        promo2Date: "දින 2 කට පෙර",
+        promo2Content: "අපි <strong>MEGA CASINO</strong> අපගේ සහායක වේදිකා වලට එකතු කර ඇත. පළමු තැන්පතු සඳහා විශේෂ 20% සාදරයෙන් පිළිගැනීමේ බෝනස් ලබාගන්න.",
+        
+        // Contacts Tab
+        contactsTitle: "අපව සම්බන්ධ කරගන්න",
+        contactsDescription: "මෙම ඕනෑම නාලිකාවක් හරහා අපව සම්බන්ධ කරගන්න:",
+        whatsapp1Text: "WhatsApp 1",
+        whatsapp2Text: "WhatsApp 2",
+        call1Text: "ඇමතුම් 1",
+        call2Text: "ඇමතුම් 2",
+        telegramText: "Telegram",
+        emailText: "විද්‍යුත් තැපෑල",
+        
+        // Support Tab
+        howToUseTitle: "අපගේ සේවාව භාවිතා කරන ආකාරය",
+        step1Title: "පියවර 1:",
+        step1Desc: "අපගේ සහායක ලැයිස්තුවෙන් ඔබගේ ගේමින් වේදිකාව තෝරාගන්න",
+        step2Title: "පියවර 2:",
+        step2Desc: "ලියාපදිංචි වන අතරතුර <span style='color: var(--primary); font-weight: 800;'>RRANJI</span> ප්‍රවර්ධන කේතය භාවිතා කරන්න",
+        step3Title: "පියවර 3:",
+        step3Desc: "අපගේ බැංකු විස්තර භාවිතා කර මුදල් තැන්පත් කරන්න",
+        step4Title: "පියවර 4:",
+        step4Desc: "ක්ෂණික සැකසුම සඳහා WhatsApp හරහා තැන්පතු පත යවන්න",
+        step5Title: "පියවර 5:",
+        step5Desc: "ආපසු ගැනීම් සඳහා, සපයන ලද ලිපින භාවිතා කර රිසීට්පත සම්ප්‍රේෂණය කරන්න",
+        
+        // Security Guidelines
+        securityTitle: "ආරක්ෂක මාර්ගෝපදේශ",
+        security1: "කවුරුත් සමඟ ඔබගේ ගේමින් ගිණුම් අක්තපත්‍ර හුවමාරු නොකරන්න",
+        security2: "ගනුදෙනු කිරීමට පෙර නියෝජිත අනන්‍යතාවය සැමවිටම සත්‍යාපනය කරන්න",
+        security3: "යොමුව සඳහා ගනුදෙනු රිසීට්පත් තබාගන්න",
+        security4: "සැක සහිත ක්‍රියාකාරකම් වහාම වාර්තා කරන්න",
+        security5: "මෙහි සපයනු ලබන නිල සම්බන්ධතා නාලිකා පමණක් භාවිතා කරන්න",
+        security6: "මෙහි ලැයිස්තුගත කර ඇති සත්‍යාපනය කළ බැංකු ගිණුම් වලට පමණක් තැන්පත් කරන්න",
+        security7: "ඕනෑම සත්‍යාපන අවශ්‍යතා සඳහා අපව සෘජුවම සම්බන්ධ කරගන්න",
+        
+        // Navigation
+        navHome: "මුල් පිටුව",
+        navNotifications: "දැනුම්දීම්",
+        navContacts: "සම්බන්ධතා",
+        navSupport: "උදව්",
+        
+        // Disclaimer
+        disclaimerTitle: "වැදගත් නිවේදනය",
+        disclaimerText1: "මෙම සේවාව ගේමින් වේදිකා සඳහා මූල්‍ය ගනුදෙනු පහසුකර දක්වයි. පරිශීලකයින් වයස අවුරුදු 18කට වැඩි විය යුතු අතර දේශීය සොරකම් නීතිවලට අනුකූල විය යුතුය. ගේමින් පාඩු සඳහා අපි වගකිව යුතු නොවේ.",
+        disclaimerText2: "සෑම විටම වගකීමෙන් සොරකම් කරන්න. ඔබට අහිමි කළ හැකි දේ පමණක් තැන්පත් කරන්න. සොරකම් ගැටලු සහගත වුවහොත් උපකාර ලබාගන්න.",
+        helplineText: "සොරකම් උපකාර රේඛාව: 1337",
+        helplineDescription: "ඔබට සොරකම් අනිවාර්යතාවය සමඟ උපකාර අවශ්‍ය නම්",
+        
+        // Toast message
+        toastMessage: "ක්ලිප්බෝඩ් වෙත පිටපත් කරන ලදී!",
+        
+        // BOC & People's Bank Warning
+        bocWarning: "සැ.යු BOC රාත්‍රි 9.00 ත් උදෑසන 6.00 ත් අතර මුදල් තැන්පත් කිරීමෙන් වලකින්න",
+        peoplesWarning: "සැ.යු People's Bank රාත්‍රි 9.00 ත් උදෑසන 6.00 ත් අතර මුදල් තැන්පත් කිරීමෙන් වලකින්න"
+      },
+      en: {
+        // Language selection
+        languageTitle: "R RANJI MASTER CASH AGENTS",
+        languageSubtitle: "Your Trusted Gaming Finance Partner",
+        sinhalaButton: "සිංහල",
+        englishButton: "English",
+        
+        // Header
+        headerTitle: "R RANJI MASTER CASH AGENTS",
+        headerSubtitle: "Premium Gaming Finance Solutions",
+        
+        // Company
+        companyName: "R RANJI MASTER CASH AGENTS",
+        companyTagline: "Your Trusted Gaming Finance Partner",
+        
+        // Promo Banner
+        promoTitle: "EXCLUSIVE PROMOTION",
+        promoDescription: "Use this code on ALL gaming platforms!",
+        promoNote: "Bonus credits on all supported platforms",
+        
+        // Action Buttons
+        bankButtonText: "Bank Details",
+        withdrawalButtonText: "Withdrawal Details",
+        
+        // Platforms
+        platformsTitle: "Supported Gaming Platforms",
+        directAccessTitle: "Direct Platform Access",
+        directAccessDescription: "Click on any platform below to download their app through our referral:",
+        
+        // Bank Tab
+        bankDetailsTitle: "Bank Details for Deposits",
+        bankInstructions: "Click on any detail below to copy it to your clipboard:",
+        
+        // Withdrawal Tab
+        withdrawalTitle: "Withdrawal Addresses",
+        withdrawalInstructions: "Click on any detail below to copy it to your clipboard:",
+        
+        // Notifications Tab
+        notificationsTitle: "Notifications & Updates",
+        notificationsDescription: "Latest updates, promotions, and important announcements:",
+        recentPromotionsTitle: "Recent Promotions",
+        promo1Title: "SPECIAL BONUS OFFER",
+        promo1Date: "Today",
+        promo1Content: "Get 15% extra bonus on deposits above Rs. 5000 this weekend! Use code <strong>WEEKEND15</strong> when sending your deposit slip.",
+        promo2Title: "New Platform Added",
+        promo2Date: "2 days ago",
+        promo2Content: "We've added <strong>MEGA CASINO</strong> to our supported platforms. Get exclusive 20% welcome bonus for first-time deposits.",
+        
+        // Contacts Tab
+        contactsTitle: "Contact Us",
+        contactsDescription: "Get in touch with us through any of these channels:",
+        whatsapp1Text: "WhatsApp 1",
+        whatsapp2Text: "WhatsApp 2",
+        call1Text: "Call 1",
+        call2Text: "Call 2",
+        telegramText: "Telegram",
+        emailText: "Email",
+        
+        // Support Tab
+        howToUseTitle: "How to Use Our Service",
+        step1Title: "Step 1:",
+        step1Desc: "Choose your gaming platform from our supported list",
+        step2Title: "Step 2:",
+        step2Desc: "Use promo code <span style='color: var(--primary); font-weight: 800;'>RRANJI</span> during registration",
+        step3Title: "Step 3:",
+        step3Desc: "Deposit funds using our bank details",
+        step4Title: "Step 4:",
+        step4Desc: "Send deposit slip via WhatsApp for instant processing",
+        step5Title: "Step 5:",
+        step5Desc: "For withdrawals, use provided addresses and submit receipt",
+        
+        // Security Guidelines
+        securityTitle: "Security Guidelines",
+        security1: "Never share your gaming account credentials with anyone",
+        security2: "Always verify agent identity before transactions",
+        security3: "Keep transaction receipts for reference",
+        security4: "Report suspicious activity immediately",
+        security5: "Use only official contact channels provided here",
+        security6: "Deposit only to verified bank accounts listed here",
+        security7: "Contact us directly for any verification needs",
+        
+        // Navigation
+        navHome: "HOME",
+        navNotifications: "NOTIFICATIONS",
+        navContacts: "CONTACTS",
+        navSupport: "SUPPORT",
+        
+        // Disclaimer
+        disclaimerTitle: "IMPORTANT DISCLAIMER",
+        disclaimerText1: "This service facilitates financial transactions for gaming platforms. Users must be 18+ and comply with local gambling laws. We are not responsible for gaming losses.",
+        disclaimerText2: "Always gamble responsibly. Only deposit what you can afford to lose. Seek help if gambling becomes problematic.",
+        helplineText: "Gambling Helpline: 1337",
+        helplineDescription: "If you need help with gambling addiction",
+        
+        // Toast message
+        toastMessage: "Copied to clipboard!",
+        
+        // BOC & People's Bank Warning
+        bocWarning: "NOTE: Avoid depositing money to BOC between 9.00 PM and 6.00 AM",
+        peoplesWarning: "NOTE: Avoid depositing money to People's Bank between 9.00 PM and 6.00 AM"
+      }
+    };
+    
+    // Bank data - UPDATED with BOC and People's Bank warning
+    const banks = [
+      {
+        name: "Sampath Bank",
+        account: "100257000281",
+        holder: "G D Lasantha",
+        branch: "Pettah",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Sampath_Bank_logo.svg/512px-Sampath_Bank_logo.svg.png?20201012085912"
+      },
+      {
+        name: "Commercial Bank",
+        account: "800123456789",
+        holder: "R Ranji Cash Agents",
+        branch: "Bandarawela",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Commercial_Bank_of_Ceylon_logo.svg/512px-Commercial_Bank_of_Ceylon_logo.svg.png"
+      },
+      {
+        name: "People's Bank",
+        account: "123456789012",
+        holder: "Master Cash Agents",
+        branch: "Colombo",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/People%27s_Bank_%28Sri_Lanka%29_logo.svg/512px-People%27s_Bank_%28Sri_Lanka%29_logo.svg.png",
+        warning: true // Add warning for People's Bank
+      },
+      {
+        name: "NDB Bank",
+        account: "987654321098",
+        holder: "R Ranji Master",
+        branch: "Kandy",
+        logo: "https://www.ndbbank.com/images/logo.png"
+      },
+      {
+        name: "Bank of Ceylon",
+        account: "001234567890",
+        holder: "Ranji Gaming Finance",
+        branch: "Galle",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Bank_of_Ceylon.svg/512px-Bank_of_Ceylon.svg.png",
+        warning: true // Add warning flag for BOC
+      },
+      {
+        name: "Hatton National Bank",
+        account: "567890123456",
+        holder: "Cash Agents Lanka",
+        branch: "Matara",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/HNB_logo.svg/512px-HNB_logo.svg.png"
+      },
+      {
+        name: "DFCC Bank",
+        account: "234567890123",
+        holder: "Gaming Finance Solutions",
+        branch: "Kurunegala",
+        logo: "https://www.dfcc.lk/wp-content/uploads/2020/11/dfcc-logo.png"
+      }
+    ];
+    
+    // Gaming platforms for withdrawal
+    const platforms = [
+      { 
+        name: "1XBET", 
+        city: "Bandarawela", 
+        street: "R Ranji master cash", 
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/1xBet_logo.svg/512px-1xBet_logo.svg.png"
+      },
+      { 
+        name: "MELBET", 
+        city: "Colombo 05", 
+        street: "Gaming Avenue", 
+        logo: "https://melbet.com/images/logo.svg"
+      },
+      { 
+        name: "888STARZ", 
+        city: "Kandy", 
+        street: "Casino Road", 
+        logo: "https://www.888starz.bet/images/logo.png"
+      },
+      { 
+        name: "WINWIN", 
+        city: "Galle", 
+        street: "Fort Road", 
+        logo: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&h=400&fit=crop"
+      },
+      { 
+        name: "GOLDENPARI", 
+        city: "Matara", 
+        street: "Beach Road", 
+        logo: "https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?w-400&h=400&fit=crop"
+      },
+      { 
+        name: "MEGAPARI", 
+        city: "Kurunegala", 
+        street: "Main Street", 
+        logo: "https://megapari.com/static/images/logo.png"
+      },
+      { 
+        name: "4RAJABET", 
+        city: "Anuradhapura", 
+        street: "Temple Road", 
+        logo: "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=400&h=400&fit=crop"
+      }
+    ];
+    
+    // Gaming platforms with download links
+    const gamingPlatforms = [
+      {
+        name: "1XBET",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/1xBet_logo.svg/512px-1xBet_logo.svg.png",
+        downloadUrl: "https://1xbet.com/download",
+        description: "Download App"
+      },
+      {
+        name: "MELBET",
+        logo: "https://melbet.com/images/logo.svg",
+        downloadUrl: "https://melbet.com/en/mobile",
+        description: "Get Mobile App"
+      },
+      {
+        name: "888STARZ",
+        logo: "https://www.888starz.bet/images/logo.png",
+        downloadUrl: "https://www.888starz.bet/app",
+        description: "Install App"
+      },
+      {
+        name: "WINWIN",
+        logo: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&h=400&fit=crop",
+        downloadUrl: "https://winwin.com/download",
+        description: "Download Now"
+      },
+      {
+        name: "GOLDENPARI",
+        logo: "https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?w-400&h=400&fit=crop",
+        downloadUrl: "https://goldenpari.com/app",
+        description: "Get App"
+      },
+      {
+        name: "MEGAPARI",
+        logo: "https://megapari.com/static/images/logo.png",
+        downloadUrl: "https://megapari.com/mobile",
+        description: "Mobile Version"
+      },
+      {
+        name: "4RAJABET",
+        logo: "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=400&h=400&fit=crop",
+        downloadUrl: "https://4rajabet.com/download",
+        description: "Download App"
+      },
+      {
+        name: "1WIN",
+        logo: "https://1win.com/images/logo.svg",
+        downloadUrl: "https://1win.com/app",
+        description: "Install Now"
+      },
+      {
+        name: "PIN-UP",
+        logo: "https://pin-up.com/images/logo.png",
+        downloadUrl: "https://pin-up.com/mobile",
+        description: "Get App"
+      },
+      {
+        name: "LEON",
+        logo: "https://leon.com/images/logo.svg",
+        downloadUrl: "https://leon.com/download",
+        description: "Download App"
+      }
+    ];
+    
+    // Notifications data
+    const notifications = [
+      {
+        title: "New Service Announcement",
+        content: "We are now offering 24/7 customer support via WhatsApp. Message us anytime for assistance with deposits or withdrawals.",
+        date: "Just now",
+        type: "new",
+        icon: "fas fa-headset",
+        iconColor: "var(--success)"
+      },
+      {
+        title: "System Maintenance",
+        content: "There will be a brief system maintenance on Saturday night from 12 AM to 2 AM. Services might be temporarily unavailable.",
+        date: "3 hours ago",
+        type: "important",
+        icon: "fas fa-tools",
+        iconColor: "var(--warning)"
+      },
+      {
+        title: "Promotion Extended",
+        content: "The RRANJI promo code has been extended until end of this month! Continue to enjoy bonus credits on all deposits.",
+        date: "Yesterday",
+        type: "new",
+        icon: "fas fa-gift",
+        iconColor: "var(--primary)"
+      },
+      {
+        title: "Security Update",
+        content: "We have enhanced our security protocols. Always verify the phone numbers and bank details before making transactions.",
+        date: "2 days ago",
+        type: "important",
+        icon: "fas fa-shield-alt",
+        iconColor: "var(--danger)"
+      },
+      {
+        title: "New Platform Partner",
+        content: "We're excited to announce our partnership with ROYAL CASINO. Get exclusive 25% bonus on your first deposit.",
+        date: "3 days ago",
+        type: "normal",
+        icon: "fas fa-handshake",
+        iconColor: "var(--accent)"
+      }
+    ];
+    
+    // Image slider images
+    const sliderImages = [
+      {
+        url: "https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?w=800&h=400&fit=crop",
+        title: "Secure Transactions"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&h=400&fit=crop",
+        title: "24/7 Support"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800&h=400&fit=crop",
+        title: "Instant Withdrawals"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&h=400&fit=crop",
+        title: "Multiple Platforms"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1567593810070-7a5c0925344e?w=800&h=400&fit=crop",
+        title: "Fast Deposits"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&h=400&fit=crop",
+        title: "Trusted Service"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1580169980114-ccd0babfa840?w=800&h=400&fit=crop",
+        title: "Premium Experience"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&h=400&fit=crop",
+        title: "Exclusive Promotions"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=400&fit=crop",
+        title: "User Friendly"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1616512659459-2b2956f5e68b?w=800&h=400&fit=crop",
+        title: "Safe & Secure"
+      }
+    ];
+    
+    // Random images for fallback logos
+    const fallbackBankImages = [
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1556740738-6eb8fa0e2c6b?w=200&h=200&fit=crop&crop=center"
+    ];
+    
+    const fallbackPlatformImages = [
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=200&h=200&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=200&h=200&fit=crop&crop=center"
+    ];
+    
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if language is already selected
+      const savedLanguage = localStorage.getItem('selectedLanguage');
+      if (savedLanguage) {
+        currentLanguage = savedLanguage;
+        selectLanguage(savedLanguage, true);
+      } else {
+        // Show language selection screen
+        document.getElementById('languageSelection').classList.remove('hidden');
+        document.getElementById('appContainer').classList.remove('visible');
+      }
+    });
+    
+    // Select language function
+    function selectLanguage(language, skipAnimation = false) {
+      currentLanguage = language;
+      localStorage.setItem('selectedLanguage', language);
+      
+      // Hide language selection screen
+      document.getElementById('languageSelection').classList.add('hidden');
+      
+      // Show app container
+      document.getElementById('appContainer').classList.add('visible');
+      
+      // Apply translations
+      applyTranslations();
+      
+      // Initialize app components
+      loadBanks();
+      loadWithdrawals();
+      loadGamingPlatforms();
+      loadDirectAccessPlatforms();
+      loadImageSlider();
+      loadNotifications();
+      startSlider();
+      showInitialDisclaimer();
+      
+      // Auto-show disclaimer on first visit
+      if (!skipAnimation) {
+        setTimeout(() => {
+          if (!localStorage.getItem('disclaimerSeen')) {
+            toggleDisclaimer();
+            localStorage.setItem('disclaimerSeen', 'true');
+          }
+        }, 3000);
+      }
+    }
+    
+    // Show language selection screen from anywhere in the app
+    function showLanguageSelection() {
+      document.getElementById('languageSelection').classList.remove('hidden');
+      document.getElementById('appContainer').classList.remove('visible');
+    }
+    
+    // Apply translations to all elements
+    function applyTranslations() {
+      const lang = translations[currentLanguage];
+      
+      // Apply translations to all elements with IDs
+      Object.keys(lang).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+          if (key === 'step2Desc' || key === 'step3Desc' || key === 'step4Desc' || key === 'step5Desc') {
+            element.innerHTML = lang[key];
+          } else if (key === 'securityList') {
+            // Special handling for list items
+            const items = element.querySelectorAll('li');
+            items.forEach((item, index) => {
+              const itemKey = `security${index + 1}`;
+              if (lang[itemKey]) {
+                item.textContent = lang[itemKey];
+              }
+            });
+          } else if (key === 'promo1Content' || key === 'promo2Content') {
+            element.innerHTML = lang[key];
+          } else {
+            element.textContent = lang[key];
+          }
+        }
+      });
+    }
+    
+    // Tab switching function
+    function switchTab(tabId, clickedElement = null) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Show selected tab content
+      document.getElementById(tabId).classList.add('active');
+      
+      // Update active nav item if clicked from nav
+      if (clickedElement) {
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        clickedElement.classList.add('active');
+        
+        // If switching to notification tab, clear notification badge
+        if (tabId === 'notificationTab') {
+          clearNotificationBadge();
+        }
+      } else {
+        // If switching from button, find and activate corresponding nav item
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.remove('active');
+          
+          // Determine which nav item to activate based on tab
+          if (tabId === 'dashboardTab' && item.querySelector('i.fa-home')) {
+            item.classList.add('active');
+          } else if (tabId === 'notificationTab' && item.querySelector('i.fa-bell')) {
+            item.classList.add('active');
+            clearNotificationBadge();
+          } else if (tabId === 'contactsTab' && item.querySelector('i.fa-address-book')) {
+            item.classList.add('active');
+          } else if (tabId === 'supportTab' && item.querySelector('i.fa-question-circle')) {
+            item.classList.add('active');
+          }
+        });
+      }
+      
+      // Scroll to top
+      document.querySelector('.scroll-container').scrollTo(0, 0);
+      
+      // Close disclaimer if open
+      document.getElementById('disclaimerPopup').classList.remove('show');
+    }
+    
+    // Clear notification badge
+    function clearNotificationBadge() {
+      document.getElementById('notificationCount').textContent = '0';
+      document.getElementById('navNotificationCount').style.display = 'none';
+      document.getElementById('navNotificationCount').textContent = '0';
+    }
+    
+    // Load notifications
+    function loadNotifications() {
+      const notificationList = document.getElementById('notificationList');
+      notificationList.innerHTML = '';
+      
+      let newNotificationsCount = 0;
+      
+      notifications.forEach((notification, index) => {
+        const notificationItem = document.createElement('div');
+        notificationItem.className = `notification-item ${notification.type}`;
+        notificationItem.innerHTML = `
+          <div class="notification-header">
+            <div class="notification-title">
+              <i class="${notification.icon}" style="color: ${notification.iconColor};"></i>
+              ${notification.title}
+              ${notification.type === 'new' ? '<span class="notification-badge-new">NEW</span>' : ''}
+            </div>
+            <div class="notification-date">${notification.date}</div>
+          </div>
+          <div class="notification-content">${notification.content}</div>
+        `;
+        notificationList.appendChild(notificationItem);
+        
+        if (notification.type === 'new') {
+          newNotificationsCount++;
+        }
+      });
+      
+      // Update notification counts
+      document.getElementById('notificationCount').textContent = newNotificationsCount;
+      document.getElementById('navNotificationCount').textContent = newNotificationsCount;
+      
+      if (newNotificationsCount === 0) {
+        document.getElementById('navNotificationCount').style.display = 'none';
+      }
+    }
+    
+    // Load image slider
+    function loadImageSlider() {
+      const sliderTrack = document.getElementById('sliderTrack');
+      const sliderDots = document.getElementById('sliderDots');
+      
+      sliderImages.forEach((image, index) => {
+        // Create slide
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.style.backgroundImage = `url('${image.url}')`;
+        slide.innerHTML = `<div class="slide-overlay">${image.title}</div>`;
+        sliderTrack.appendChild(slide);
+        
+        // Create dot
+        const dot = document.createElement('div');
+        dot.className = 'slider-dot';
+        if (index === 0) dot.classList.add('active');
+        dot.dataset.index = index;
+        dot.addEventListener('click', () => goToSlide(index));
+        sliderDots.appendChild(dot);
+      });
+    }
+    
+    // Start slider auto-play
+    function startSlider() {
+      slideInterval = setInterval(nextSlide, 4000);
+    }
+    
+    // Go to specific slide
+    function goToSlide(index) {
+      const sliderTrack = document.getElementById('sliderTrack');
+      const dots = document.querySelectorAll('.slider-dot');
+      
+      currentSlide = index;
+      sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Update dots
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+      
+      // Reset interval
+      clearInterval(slideInterval);
+      startSlider();
+    }
+    
+    // Next slide
+    function nextSlide() {
+      const totalSlides = sliderImages.length;
+      currentSlide = (currentSlide + 1) % totalSlides;
+      goToSlide(currentSlide);
+    }
+    
+    // Previous slide
+    function prevSlide() {
+      const totalSlides = sliderImages.length;
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      goToSlide(currentSlide);
+    }
+    
+    // Load bank cards with special highlights and warnings - UPDATED with new highlight design
+    function loadBanks() {
+      const bankGrid = document.getElementById('bankGrid');
+      bankGrid.innerHTML = '';
+      
+      banks.forEach((bank, index) => {
+        const bankCard = document.createElement('div');
+        bankCard.className = 'bank-card';
+        
+        // Check if this is BOC or People's Bank for warning
+        let warningHtml = '';
+        let warningText = '';
+        
+        if (bank.warning) {
+          if (bank.name === "Bank of Ceylon") {
+            warningText = translations[currentLanguage].bocWarning;
+          } else if (bank.name === "People's Bank") {
+            warningText = translations[currentLanguage].peoplesWarning;
+          }
+          
+          warningHtml = `<div class="bank-warning-note">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>${warningText}</span>
+          </div>`;
+        }
+        
+        bankCard.innerHTML = `
+          <div class="bank-header">
+            <div class="bank-icon">
+              <img src="${bank.logo || fallbackBankImages[index]}" alt="${bank.name}" 
+                   onerror="this.src='${fallbackBankImages[index]}'">
+            </div>
+            <div style="flex-grow: 1;">
+              <div style="font-weight: 800; color: var(--dark-1); font-size: 1.1rem; margin-bottom: 5px;">${bank.name}</div>
+            </div>
+          </div>
+          
+          <div class="bank-details">
+            <!-- Account Number with special highlight -->
+            <div class="account-number-row copyable" data-value="${bank.account}" data-label="${bank.name} - ${currentLanguage === 'si' ? 'ගිණුම් අංකය' : 'Account Number'}">
+              <div class="account-number-label">
+                <i class="fas fa-id-badge"></i> <span>${currentLanguage === 'si' ? 'ගිණුම් අංකය:' : 'Account Number:'}</span>
+              </div>
+              <div class="account-number-value">
+                ${bank.account}
+                <span class="copy-indicator"><i class="fas fa-copy"></i></span>
+              </div>
+            </div>
+            
+            <!-- Account Holder -->
+            <div class="detail-row">
+              <div class="detail-label">
+                <i class="fas fa-user"></i> <span>${currentLanguage === 'si' ? 'ගිණුම් හිමිකරු:' : 'Account Holder:'}</span>
+              </div>
+              <div class="detail-value">
+                <span class="copyable" data-value="${bank.holder}" data-label="${bank.name} - ${currentLanguage === 'si' ? 'ගිණුම් හිමිකරු' : 'Account Holder'}">
+                  ${bank.holder}
+                  <span class="copy-indicator"><i class="fas fa-copy"></i></span>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Branch -->
+            <div class="detail-row">
+              <div class="detail-label">
+                <i class="fas fa-map-marker-alt"></i> <span>${currentLanguage === 'si' ? 'ශාඛාව:' : 'Branch:'}</span>
+              </div>
+              <div class="detail-value">
+                <span class="copyable" data-value="${bank.branch}" data-label="${bank.name} - ${currentLanguage === 'si' ? 'ශාඛාව' : 'Branch'}">
+                  ${bank.branch}
+                  <span class="copy-indicator"><i class="fas fa-copy"></i></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Warning note at the END of the bank card -->
+          ${warningHtml}
+        `;
+        bankGrid.appendChild(bankCard);
+      });
+    }
+    
+    // Load withdrawal cards
+    function loadWithdrawals() {
+      const withdrawalGrid = document.getElementById('withdrawalGrid');
+      withdrawalGrid.innerHTML = '';
+      
+      platforms.forEach((platform, index) => {
+        const withdrawalCard = document.createElement('div');
+        withdrawalCard.className = 'withdrawal-card';
+        withdrawalCard.innerHTML = `
+          <div class="platform-header">
+            <div class="platform-icon">
+              <img src="${platform.logo || fallbackPlatformImages[index % fallbackPlatformImages.length]}" alt="${platform.name}"
+                   onerror="this.src='${fallbackPlatformImages[index % fallbackPlatformImages.length]}'">
+            </div>
+            <div style="flex-grow: 1;">
+              <div style="font-weight: 800; color: var(--dark-1); font-size: 1.1rem; margin-bottom: 5px;">${platform.name}</div>
+            </div>
+          </div>
+          <div class="withdrawal-details">
+            <div class="detail-row">
+              <div class="detail-label">
+                <i class="fas fa-city"></i> <span>${currentLanguage === 'si' ? 'නගරය:' : 'City:'}</span>
+              </div>
+              <div class="detail-value">
+                <span class="copyable" data-value="${platform.city}" data-label="${platform.name} - ${currentLanguage === 'si' ? 'නගරය' : 'City'}">
+                  ${platform.city}
+                  <span class="copy-indicator"><i class="fas fa-copy"></i></span>
+                </span>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">
+                <i class="fas fa-road"></i> <span>${currentLanguage === 'si' ? 'වීදිය:' : 'Street:'}</span>
+              </div>
+              <div class="detail-value">
+                <span class="copyable" data-value="${platform.street}" data-label="${platform.name} - ${currentLanguage === 'si' ? 'වීදිය' : 'Street'}">
+                  ${platform.street}
+                  <span class="copy-indicator"><i class="fas fa-copy"></i></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+        withdrawalGrid.appendChild(withdrawalCard);
+      });
+    }
+    
+    // Load gaming platforms with logos
+    function loadGamingPlatforms() {
+      const platformsGrid = document.getElementById('platformsGrid');
+      platformsGrid.innerHTML = '';
+      
+      gamingPlatforms.forEach((platform, index) => {
+        const platformCard = document.createElement('a');
+        platformCard.className = 'platform-logo-card';
+        platformCard.href = platform.downloadUrl;
+        platformCard.target = '_blank';
+        platformCard.innerHTML = `
+          <div class="platform-logo">
+            <img src="${platform.logo || fallbackPlatformImages[index % fallbackPlatformImages.length]}" 
+                 alt="${platform.name}"
+                 onerror="this.src='${fallbackPlatformImages[index % fallbackPlatformImages.length]}'">
+          </div>
+          <div class="platform-logo-name">${platform.name}</div>
+        `;
+        platformsGrid.appendChild(platformCard);
+      });
+    }
+    
+    // Load direct access platforms
+    function loadDirectAccessPlatforms() {
+      const directAccessGrid = document.getElementById('directAccessGrid');
+      directAccessGrid.innerHTML = '';
+      
+      // Use all gaming platforms for direct access
+      gamingPlatforms.forEach((platform, index) => {
+        const accessCard = document.createElement('a');
+        accessCard.className = 'direct-access-card';
+        accessCard.href = platform.downloadUrl;
+        accessCard.target = '_blank';
+        accessCard.innerHTML = `
+          <div class="direct-access-icon">
+            <i class="fas fa-download"></i>
+          </div>
+          <div class="direct-access-name">${platform.name}</div>
+          <div class="direct-access-desc">${platform.description}</div>
+        `;
+        directAccessGrid.appendChild(accessCard);
+      });
+    }
+    
+    // Copy to clipboard function with center toast
+    function copyToClipboard(text, label) {
+      navigator.clipboard.writeText(text).then(() => {
+        showSuccessToast(translations[currentLanguage].toastMessage);
+      }).catch(err => {
+        // Fallback method
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showSuccessToast(translations[currentLanguage].toastMessage);
+      });
+    }
+    
+    // Show success toast in center
+    function showSuccessToast(message) {
+      const toast = document.getElementById('successToast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+    
+    // Disclaimer functions
+    function toggleDisclaimer() {
+      const popup = document.getElementById('disclaimerPopup');
+      popup.classList.toggle('show');
+    }
+    
+    function showInitialDisclaimer() {
+      // Show briefly on first load
+      setTimeout(() => {
+        if (!localStorage.getItem('initialDisclaimerShown')) {
+          toggleDisclaimer();
+          localStorage.setItem('initialDisclaimerShown', 'true');
+          
+          // Auto-hide after 8 seconds
+          setTimeout(() => {
+            document.getElementById('disclaimerPopup').classList.remove('show');
+          }, 8000);
+        }
+      }, 2000);
+    }
+    
+    // Add click handlers to copyable text
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('copyable') || e.target.closest('.copyable')) {
+        const copyableElement = e.target.classList.contains('copyable') ? e.target : e.target.closest('.copyable');
+        const text = copyableElement.getAttribute('data-value') || copyableElement.textContent;
+        const label = copyableElement.getAttribute('data-label') || 'Text';
+        
+        copyToClipboard(text, label);
+        
+        // Visual feedback
+        copyableElement.classList.add('copied');
+        setTimeout(() => {
+          copyableElement.classList.remove('copied');
+        }, 1000);
+        
+        e.stopPropagation();
+      }
+    });
+    
+    // Auto-scroll to top when clicking disclaimer badge
+    document.getElementById('disclaimerBadge').addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleDisclaimer();
+    });
+    
+    // Close disclaimer when clicking outside
+    document.addEventListener('click', function(e) {
+      const popup = document.getElementById('disclaimerPopup');
+      const badge = document.getElementById('disclaimerBadge');
+      
+      if (popup.classList.contains('show') && 
+          !popup.contains(e.target) && 
+          !badge.contains(e.target)) {
+        popup.classList.remove('show');
+      }
+    });
+    
+    // Add keyboard support
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.getElementById('disclaimerPopup').classList.remove('show');
+        document.getElementById('successToast').classList.remove('show');
+      }
+    });
+    
+    // Pause slider on hover
+    document.getElementById('imageSlider').addEventListener('mouseenter', () => {
+      clearInterval(slideInterval);
+    });
+    
+    document.getElementById('imageSlider').addEventListener('mouseleave', () => {
+      startSlider();
+    });
+  </script>
+</body>
+</html>
